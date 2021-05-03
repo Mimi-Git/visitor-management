@@ -11,6 +11,11 @@ namespace visitor_management_api.Data
             throw new NotImplementedException();
         }
 
+        public void DeleteVisitor(Visitor visitor)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Visitor> GetAllVisitors()
         {
             var visitors = new List<Visitor>()

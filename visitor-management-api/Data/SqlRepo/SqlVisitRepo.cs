@@ -24,6 +24,16 @@ namespace visitor_management_api.Data
             _context.Visits.Add(visit);
         }
 
+        public void DeleteVisit(Visit visit)
+        {
+            if (visit == null)
+            {
+                throw new ArgumentNullException(nameof(visit));
+            }
+
+            _context.Visits.Remove(visit);
+        }
+
         public IEnumerable<Visit> GetAllVisits()
         {
             return _context.Visits.ToList();

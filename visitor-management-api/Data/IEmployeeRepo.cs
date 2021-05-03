@@ -14,5 +14,7 @@ namespace visitor_management_api.Data
         void CreateEmployee(Employee employee);
 
         void UpdateEmployee(Employee employee);
+
+        void DeleteEmployee(Employee employee);
     }
 }

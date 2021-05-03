@@ -11,6 +11,6 @@ namespace visitor_management_api.Dtos
         public string CompanyName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public IEnumerable<Visit> Visits { get; set; }
+        //public IEnumerable<Visit> Visits { get; set; }
     }
 }

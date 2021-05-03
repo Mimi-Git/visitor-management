@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace visitor_management_api.Migrations
 {
-    public partial class InititalMigration : Migration
+    public partial class InitialMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -50,7 +50,7 @@ namespace visitor_management_api.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ArrivalTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DepartureTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    VisitorId = table.Column<int>(type: "int", nullable: false),
+                    VisitorId = table.Column<int>(type: "int", nullable: true),
                     EmployeeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -61,13 +61,13 @@ namespace visitor_management_api.Migrations
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Visits_Visitors_VisitorId",
                         column: x => x.VisitorId,
                         principalTable: "Visitors",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateIndex(

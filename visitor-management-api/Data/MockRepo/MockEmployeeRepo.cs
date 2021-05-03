@@ -10,6 +10,11 @@ namespace visitor_management_api.Data
             throw new System.NotImplementedException();
         }
 
+        public void DeleteEmployee(Employee employee)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public IEnumerable<Employee> GetAllEmployees()
         {
             var employees = new List<Employee>()

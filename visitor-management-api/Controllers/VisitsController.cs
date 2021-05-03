@@ -107,5 +107,20 @@ namespace visitor_management_api.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteVisit(int id)
+        {
+            var visitModelFromRepo = _repository.GetVisitById(id);
+            if (visitModelFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            _repository.DeleteVisit(visitModelFromRepo);
+            _repository.SaveChanges();
+
+            return NoContent();
+        }
     }
 }

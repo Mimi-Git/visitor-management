@@ -25,18 +25,28 @@ namespace visitor_management_api.Data
             _context.Visitors.Add(visitor);
         }
 
+        public void DeleteVisitor(Visitor visitor)
+        {
+            if (visitor == null)
+            {
+                throw new ArgumentNullException(nameof(visitor));
+            }
+
+            _context.Visitors.Remove(visitor);
+        }
+
         public IEnumerable<Visitor> GetAllVisitors()
         {
-            var visitors = _context.Visitors.Include(v => v.Visits)
-                                            .ToList();
+            //var visitors = _context.Visitors.Include(v => v.Visits)
+            var visitors = _context.Visitors.ToList();
 
             return visitors;
         }
 
         public Visitor GetVisitorById(int id)
         {
-            return _context.Visitors.Include(v => v.Visits)
-                                    .FirstOrDefault(v => v.Id == id);
+            //return _context.Visitors.Include(v => v.Visits)
+            return _context.Visitors.FirstOrDefault(v => v.Id == id);
         }
 
         public bool SaveChanges()

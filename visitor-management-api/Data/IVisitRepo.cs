@@ -14,5 +14,7 @@ namespace visitor_management_api.Data
         void CreateVisit(Visit visit);
 
         void UpdateVisit(Visit visit);
+
+        void DeleteVisit(Visit visit);
     }
 }

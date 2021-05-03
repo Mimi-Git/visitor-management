@@ -107,5 +107,20 @@ namespace visitor_management_api.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteEmployee(int id)
+        {
+            var employeeModelFromRepo = _repository.GetEmployeeById(id);
+            if (employeeModelFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            _repository.DeleteEmployee(employeeModelFromRepo);
+            _repository.SaveChanges();
+
+            return NoContent();
+        }
     }
 }

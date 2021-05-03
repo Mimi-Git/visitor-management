@@ -73,7 +73,7 @@ namespace visitor_management_api.Migrations
                     b.Property<int?>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("VisitorId")
+                    b.Property<int?>("VisitorId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -122,18 +122,23 @@ namespace visitor_management_api.Migrations
             modelBuilder.Entity("visitor_management_api.Models.Visit", b =>
                 {
                     b.HasOne("visitor_management_api.Models.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId");
+                        .WithMany("Visits")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("visitor_management_api.Models.Visitor", "Visitor")
                         .WithMany("Visits")
                         .HasForeignKey("VisitorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Employee");
 
                     b.Navigation("Visitor");
+                });
+
+            modelBuilder.Entity("visitor_management_api.Models.Employee", b =>
+                {
+                    b.Navigation("Visits");
                 });
 
             modelBuilder.Entity("visitor_management_api.Models.Visitor", b =>

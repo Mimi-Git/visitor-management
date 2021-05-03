@@ -16,12 +16,12 @@ namespace visitor_management_api.Models
         [DataType(DataType.Date)]
         public DateTime DepartureTime { get; set; }
 
-        [Required]
-        [ForeignKey("Visitor")]
-        public int VisitorId { get; set; }
+        public int? VisitorId { get; set; }
 
-        [Required]
-        [ForeignKey("Employee")]
-        public int EmployeeId { get; set; }
+        public int? EmployeeId { get; set; }
+
+        public Visitor Visitor { get; set; }
+
+        public Employee Employee { get; set; }
     }
 }

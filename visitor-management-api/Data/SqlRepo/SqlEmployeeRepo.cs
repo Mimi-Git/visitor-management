@@ -24,6 +24,16 @@ namespace visitor_management_api.Data
             _context.Employees.Add(employee);
         }
 
+        public void DeleteEmployee(Employee employee)
+        {
+            if (employee == null)
+            {
+                throw new ArgumentNullException(nameof(employee));
+            }
+
+            _context.Employees.Remove(employee);
+        }
+
         public IEnumerable<Employee> GetAllEmployees()
         {
             return _context.Employees.ToList();
