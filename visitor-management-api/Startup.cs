@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using visitor_management_api.Data;
 
 namespace visitor_management_api
@@ -21,6 +22,8 @@ namespace visitor_management_api
         {
             services.AddDbContext<Data.VisitorAppContext>(opt => opt.UseSqlServer
             (Configuration.GetConnectionString("VisitorConnection")));
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddControllers()
             .AddNewtonsoftJson(options =>
