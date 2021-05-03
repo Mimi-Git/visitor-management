@@ -38,5 +38,9 @@ namespace visitor_management_api.Data
         {
             return (_context.SaveChanges() >= 0);
         }
+
+        public void UpdateVisit(Visit visit)
+        {
+        }
     }
 }

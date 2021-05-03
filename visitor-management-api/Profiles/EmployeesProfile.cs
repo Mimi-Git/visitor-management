@@ -10,6 +10,7 @@ namespace visitor_management_api.Profiles
         {
             CreateMap<Employee, EmployeeReadDto>();
             CreateMap<EmployeeCreateDto, Employee>();
+            CreateMap<EmployeeUpdateDto, Employee>();
         }
     }
 }

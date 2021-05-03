@@ -61,5 +61,23 @@ namespace visitor_management_api.Controllers
 
             return CreatedAtRoute(nameof(GetVisitorById), new { Id = visitorReadDto.Id }, visitorReadDto);
         }
+
+        [HttpPut("{id}")]
+        public ActionResult UpdateVisitor(int id, VisitorUpdateDto visitorUpdateDto)
+        {
+            var visitorModelFromRepo = _repository.GetVisitorById(id);
+            if (visitorModelFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            _mapper.Map(visitorUpdateDto, visitorModelFromRepo);
+
+            _repository.UpdateVisitor(visitorModelFromRepo);
+
+            _repository.SaveChanges();
+
+            return NoContent();
+        }
     }
 }

@@ -12,5 +12,7 @@ namespace visitor_management_api.Data
         Visit GetVisitById(int id);
 
         void CreateVisit(Visit visit);
+
+        void UpdateVisit(Visit visit);
     }
 }

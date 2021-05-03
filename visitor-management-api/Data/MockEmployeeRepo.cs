@@ -58,5 +58,10 @@ namespace visitor_management_api.Data
         {
             throw new System.NotImplementedException();
         }
+
+        public void UpdateEmployee(Employee employee)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

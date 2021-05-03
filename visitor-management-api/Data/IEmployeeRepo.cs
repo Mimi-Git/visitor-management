@@ -12,5 +12,7 @@ namespace visitor_management_api.Data
         Employee GetEmployeeById(int id);
 
         void CreateEmployee(Employee employee);
+
+        void UpdateEmployee(Employee employee);
     }
 }

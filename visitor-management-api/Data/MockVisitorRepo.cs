@@ -72,5 +72,10 @@ namespace visitor_management_api.Data
         {
             throw new NotImplementedException();
         }
+
+        public void UpdateVisitor(Visitor visitor)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

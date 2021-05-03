@@ -61,5 +61,23 @@ namespace visitor_management_api.Controllers
 
             return CreatedAtRoute(nameof(GetEmployeeById), new { Id = employeeReadDto.Id }, employeeReadDto);
         }
+
+        [HttpPut("{id}")]
+        public ActionResult UpdateEmployee(int id, EmployeeUpdateDto employeeUpdateDto)
+        {
+            var employeeModelFromRepo = _repository.GetEmployeeById(id);
+            if (employeeModelFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            _mapper.Map(employeeUpdateDto, employeeModelFromRepo);
+
+            _repository.UpdateEmployee(employeeModelFromRepo);
+
+            _repository.SaveChanges();
+
+            return NoContent();
+        }
     }
 }

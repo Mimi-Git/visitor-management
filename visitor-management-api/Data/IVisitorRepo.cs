@@ -12,5 +12,7 @@ namespace visitor_management_api.Data
         Visitor GetVisitorById(int id);
 
         void CreateVisitor(Visitor visitor);
+
+        void UpdateVisitor(Visitor visitor);
     }
 }
