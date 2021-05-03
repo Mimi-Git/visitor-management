@@ -11,6 +11,7 @@ namespace visitor_management_api.Profiles
             CreateMap<Visit, VisitReadDto>();
             CreateMap<VisitCreateDto, Visit>();
             CreateMap<VisitUpdateDto, Visit>();
+            CreateMap<Visit, VisitUpdateDto>();
         }
     }
 }

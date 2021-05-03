@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using visitor_management_api.Data;
@@ -72,6 +73,33 @@ namespace visitor_management_api.Controllers
             }
 
             _mapper.Map(visitorUpdateDto, visitorModelFromRepo);
+
+            _repository.UpdateVisitor(visitorModelFromRepo);
+
+            _repository.SaveChanges();
+
+            return NoContent();
+        }
+
+        [HttpPatch("{id}")]
+        public ActionResult PartialVisitorUpdate(int id, JsonPatchDocument<VisitorUpdateDto> patchDocument)
+        {
+            var visitorModelFromRepo = _repository.GetVisitorById(id);
+            if (visitorModelFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            var visitorToPatch = _mapper.Map<VisitorUpdateDto>(visitorModelFromRepo);
+
+            patchDocument.ApplyTo(visitorToPatch, ModelState);
+
+            if (!TryValidateModel(visitorToPatch))
+            {
+                return ValidationProblem(ModelState);
+            }
+
+            _mapper.Map(visitorToPatch, visitorModelFromRepo);
 
             _repository.UpdateVisitor(visitorModelFromRepo);
 

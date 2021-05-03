@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using visitor_management_api.Data;
@@ -72,6 +73,33 @@ namespace visitor_management_api.Controllers
             }
 
             _mapper.Map(employeeUpdateDto, employeeModelFromRepo);
+
+            _repository.UpdateEmployee(employeeModelFromRepo);
+
+            _repository.SaveChanges();
+
+            return NoContent();
+        }
+
+        [HttpPatch("{id}")]
+        public ActionResult PartialEmployeeUpdate(int id, JsonPatchDocument<EmployeeUpdateDto> patchDocument)
+        {
+            var employeeModelFromRepo = _repository.GetEmployeeById(id);
+            if (employeeModelFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            var employeeToPatch = _mapper.Map<EmployeeUpdateDto>(employeeModelFromRepo);
+
+            patchDocument.ApplyTo(employeeToPatch, ModelState);
+
+            if (!TryValidateModel(employeeToPatch))
+            {
+                return ValidationProblem(ModelState);
+            }
+
+            _mapper.Map(employeeToPatch, employeeModelFromRepo);
 
             _repository.UpdateEmployee(employeeModelFromRepo);
 
