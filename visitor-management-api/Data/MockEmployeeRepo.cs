@@ -5,6 +5,11 @@ namespace visitor_management_api.Data
 {
     public class MockEmployeeRepo : IEmployeeRepo
     {
+        public void CreateEmployee(Employee employee)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public IEnumerable<Employee> GetAllEmployees()
         {
             var employees = new List<Employee>()
@@ -47,6 +52,11 @@ namespace visitor_management_api.Data
             };
 
             return employee;
+        }
+
+        public bool SaveChanges()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -6,6 +6,11 @@ namespace visitor_management_api.Data
 {
     public class MockVisitorRepo : IVisitorRepo
     {
+        public void CreateVisitor(Visitor visitor)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Visitor> GetAllVisitors()
         {
             var visitors = new List<Visitor>()
@@ -61,6 +66,11 @@ namespace visitor_management_api.Data
                         }
                     }
             };
+        }
+
+        public bool SaveChanges()
+        {
+            throw new NotImplementedException();
         }
     }
 }

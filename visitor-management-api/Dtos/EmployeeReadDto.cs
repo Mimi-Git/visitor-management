@@ -1,6 +1,4 @@
-﻿using visitor_management_api.Models;
-
-namespace visitor_management_api.Dtos
+﻿namespace visitor_management_api.Dtos
 {
     public class EmployeeReadDto
     {

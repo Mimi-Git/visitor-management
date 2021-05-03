@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using visitor_management_api.Models;
@@ -14,6 +15,16 @@ namespace visitor_management_api.Data
             _context = context;
         }
 
+        public void CreateVisitor(Visitor visitor)
+        {
+            if (visitor == null)
+            {
+                throw new ArgumentNullException(nameof(visitor));
+            }
+
+            _context.Visitors.Add(visitor);
+        }
+
         public IEnumerable<Visitor> GetAllVisitors()
         {
             var visitors = _context.Visitors.Include(v => v.Visits)
@@ -26,6 +37,11 @@ namespace visitor_management_api.Data
         {
             return _context.Visitors.Include(v => v.Visits)
                                     .FirstOrDefault(v => v.Id == id);
+        }
+
+        public bool SaveChanges()
+        {
+            return (_context.SaveChanges() >= 0);
         }
     }
 }

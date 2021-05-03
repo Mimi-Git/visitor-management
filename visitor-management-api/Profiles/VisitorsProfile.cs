@@ -9,6 +9,7 @@ namespace visitor_management_api.Profiles
         public VisitorsProfile()
         {
             CreateMap<Visitor, VisitorReadDto>();
+            CreateMap<VisitorCreateDto, Visitor>();
         }
     }
 }

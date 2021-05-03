@@ -5,8 +5,12 @@ namespace visitor_management_api.Data
 {
     public interface IVisitorRepo
     {
+        bool SaveChanges();
+
         IEnumerable<Visitor> GetAllVisitors();
 
         Visitor GetVisitorById(int id);
+
+        void CreateVisitor(Visitor visitor);
     }
 }

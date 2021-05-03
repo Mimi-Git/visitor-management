@@ -20,7 +20,6 @@ namespace visitor_management_api.Controllers
             _mapper = mapper;
         }
 
-        // Get api/employees
         [HttpGet]
         public ActionResult<IEnumerable<EmployeeReadDto>> GetAllEmployees()
         {
@@ -36,8 +35,7 @@ namespace visitor_management_api.Controllers
             }
         }
 
-        // Get api/employees/{id}
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetEmployeeById")]
         public ActionResult<EmployeeReadDto> GetEmployeeById(int id)
         {
             var employeeItem = _repository.GetEmployeeById(id);
@@ -50,6 +48,18 @@ namespace visitor_management_api.Controllers
             {
                 return NotFound();
             }
+        }
+
+        [HttpPost]
+        public ActionResult<EmployeeReadDto> CreateEmployee(EmployeeCreateDto employeeCreateDto)
+        {
+            var employeeModel = _mapper.Map<Employee>(employeeCreateDto);
+            _repository.CreateEmployee(employeeModel);
+            _repository.SaveChanges();
+
+            var employeeReadDto = _mapper.Map<EmployeeReadDto>(employeeModel);
+
+            return CreatedAtRoute(nameof(GetEmployeeById), new { Id = employeeReadDto.Id }, employeeReadDto);
         }
     }
 }

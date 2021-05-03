@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using visitor_management_api.Models;
 
@@ -13,6 +14,16 @@ namespace visitor_management_api.Data
             _context = context;
         }
 
+        public void CreateEmployee(Employee employee)
+        {
+            if (employee == null)
+            {
+                throw new ArgumentNullException(nameof(employee));
+            }
+
+            _context.Employees.Add(employee);
+        }
+
         public IEnumerable<Employee> GetAllEmployees()
         {
             return _context.Employees.ToList();
@@ -21,6 +32,11 @@ namespace visitor_management_api.Data
         public Employee GetEmployeeById(int id)
         {
             return _context.Employees.FirstOrDefault(e => e.Id == id);
+        }
+
+        public bool SaveChanges()
+        {
+            return (_context.SaveChanges() >= 0);
         }
     }
 }

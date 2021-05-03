@@ -2,13 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace visitor_management_api.Models
+namespace visitor_management_api.Dtos
 {
-    public class Visit
+    public class VisitCreateDto
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
         [DataType(DataType.Date)]
         public DateTime ArrivalTime { get; set; }

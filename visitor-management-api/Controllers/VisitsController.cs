@@ -21,7 +21,7 @@ namespace visitor_management_api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<VisitReadDto>> Get()
+        public ActionResult<IEnumerable<VisitReadDto>> GetAllVisits()
         {
             var visitItems = _repository.GetAllVisits();
 
@@ -35,8 +35,8 @@ namespace visitor_management_api.Controllers
             }
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<VisitReadDto> Get(int id)
+        [HttpGet("{id}", Name = "GetVisitById")]
+        public ActionResult<VisitReadDto> GetVisitById(int id)
         {
             var visitItem = _repository.GetVisitById(id);
 
@@ -48,6 +48,18 @@ namespace visitor_management_api.Controllers
             {
                 return NotFound();
             }
+        }
+
+        [HttpPost]
+        public ActionResult<VisitReadDto> CreateVisit(VisitCreateDto visitCreateDto)
+        {
+            var visitModel = _mapper.Map<Visit>(visitCreateDto);
+            _repository.CreateVisit(visitModel);
+            _repository.SaveChanges();
+
+            var visitReadDto = _mapper.Map<VisitReadDto>(visitModel);
+
+            return CreatedAtRoute(nameof(GetVisitById), new { Id = visitReadDto.Id }, visitReadDto);
         }
     }
 }

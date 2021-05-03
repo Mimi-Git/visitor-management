@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using visitor_management_api.Models;
 
@@ -13,6 +14,16 @@ namespace visitor_management_api.Data
             _context = context;
         }
 
+        public void CreateVisit(Visit visit)
+        {
+            if (visit == null)
+            {
+                throw new ArgumentNullException(nameof(visit));
+            }
+
+            _context.Visits.Add(visit);
+        }
+
         public IEnumerable<Visit> GetAllVisits()
         {
             return _context.Visits.ToList();
@@ -21,6 +32,11 @@ namespace visitor_management_api.Data
         public Visit GetVisitById(int id)
         {
             return _context.Visits.FirstOrDefault(v => v.Id == id);
+        }
+
+        public bool SaveChanges()
+        {
+            return (_context.SaveChanges() >= 0);
         }
     }
 }
