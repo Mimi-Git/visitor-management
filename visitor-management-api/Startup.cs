@@ -1,9 +1,12 @@
+using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using System;
 using visitor_management_api.Data;
@@ -21,8 +24,17 @@ namespace visitor_management_api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<Data.VisitorAppContext>(opt => opt.UseSqlServer
-            (Configuration.GetConnectionString("VisitorConnection")));
+            services.AddOptions()
+                    .AddMemoryCache()
+                    .Configure<IpRateLimitOptions>(Configuration.GetSection("IpRateLimiting"))
+                    .AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>()
+                    .AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>()
+                    .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
+                    .AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+
+            services.AddDbContext<VisitorAppContext>(opt => opt
+            .UseSqlServer(Configuration.GetConnectionString("VisitorConnection"))
+            .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information));
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -32,9 +44,9 @@ namespace visitor_management_api
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
 
-            services.AddScoped<IVisitorRepo, SqlVisitorRepo>();
-            services.AddScoped<IEmployeeRepo, SqlEmployeeRepo>();
-            services.AddScoped<IVisitRepo, SqlVisitRepo>();
+            services.AddScoped<IVisitorRepo, SqlVisitorRepo>()
+                    .AddScoped<IEmployeeRepo, SqlEmployeeRepo>()
+                    .AddScoped<IVisitRepo, SqlVisitRepo>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -43,6 +55,8 @@ namespace visitor_management_api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseIpRateLimiting();
 
             app.UseHttpsRedirection();
 
