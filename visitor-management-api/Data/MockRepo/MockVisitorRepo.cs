@@ -11,6 +11,11 @@ namespace visitor_management_api.Data
             throw new NotImplementedException();
         }
 
+        public void RestoreVisitors()
+        {
+            throw new NotImplementedException();
+        }
+
         public void DeleteVisitor(Visitor visitor)
         {
             throw new NotImplementedException();

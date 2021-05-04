@@ -24,6 +24,11 @@ namespace visitor_management_api.Data
             _context.Visitors.Add(visitor);
         }
 
+        public void RestoreVisitors()
+        {
+            _context.Visitors.RemoveRange(_context.Visitors);
+        }
+
         public void DeleteVisitor(Visitor visitor)
         {
             if (visitor == null)
