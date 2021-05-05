@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using System;
 using visitor_management_api.Data;
@@ -24,6 +25,11 @@ namespace visitor_management_api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+            });
+
             services.AddOptions()
                     .AddMemoryCache()
                     .Configure<IpRateLimitOptions>(Configuration.GetSection("IpRateLimiting"))
@@ -55,6 +61,13 @@ namespace visitor_management_api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("v1/swagger.json", "My API V1");
+            });
 
             app.UseIpRateLimiting();
 
