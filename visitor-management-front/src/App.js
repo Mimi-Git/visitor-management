@@ -1,11 +1,15 @@
 import React from 'react';
-import {Container} from 'reactstrap';
+import { Home } from './components/home/Home';
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+
+library.add(fab, fas);
 
 function App() {
   return (
-    <Container>
-      Hello
-    </Container>
+    <Home />
   );
 }
 

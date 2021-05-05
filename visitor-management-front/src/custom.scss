@@ -1,2 +1,8 @@
+$light: #EEFBFB;
 
+.date::first-letter{
+    text-transform: capitalize;
+}
+
+@import "./components/home/Home.scss";
 @import "~bootstrap/scss/bootstrap.scss";
