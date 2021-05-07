@@ -18,7 +18,7 @@ const Home = (props) => {
 
     return (
         <section id="home">
-            <Row className="header">
+            <Row>
                 <Col><DateTime /></Col>
                 <Col className="text-right"><Languages /></Col>
             </Row>
@@ -30,21 +30,21 @@ const Home = (props) => {
                     </Button>
                 </Col>
             </Row>
-            <Row className="footer">
-                <Col className="footer-visit d-inline">
-                    <Button color="primary" className="d-inline mr-3">
+            <div className="footer">
+                <div>
+                    <Button color="primary" className="mr-2">
                         <span><FontAwesomeIcon icon={["fas", "door-open"]} /></span>
                         <span>Sortie</span>
                     </Button>
-                    <Button color="primary" className="d-inline">
+                    <Button color="primary">
                         <span><FontAwesomeIcon icon={["fas", "retweet"]} /></span>
                         <span>Déjà venu⸱e</span>
                     </Button>
-                </Col>
-                <Col className="footer-restore text-right text-danger">
+                </div>
+                <div className="text-danger">
                     <ModalTemplate {...restoreData} />
-                </Col>
-            </Row>
+                </div>
+            </div>
         </section>
     )
 }

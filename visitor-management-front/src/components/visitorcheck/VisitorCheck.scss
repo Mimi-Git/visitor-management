@@ -1,8 +1,11 @@
 #visitor-check{
-    height: 100vh;
     .visit-type{
         button{
             padding: 1.5rem 1rem;
         }   
     }   
+
+    .visit-choice{
+        height: 80vh !important;
+    }
 }

@@ -1,26 +1,14 @@
 #home{
-    color: $light;
-    height: 100vh;
-    position: relative;
-    
     .greetings{
-        // height: 75vh;
-        height: calc(100vh - 15rem);
+        height: calc(100vh - 18rem);
     }
-
-    .footer-visit {
-        position: fixed;
-        bottom: 3rem;
-        left: 2rem;
-        span{
-            vertical-align: middle;
-            margin-right: 0.5rem;
-        }
-    }
-
-    .footer-restore{        
-        position: fixed;
-        bottom: 3rem;
+    .footer{
+        position: absolute;
+        bottom: 2rem;
         right: 2rem;
+        left: 2rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
     }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Container, Button, Row, Col } from 'reactstrap';
+import { Button, Row, Col } from 'reactstrap';
 import { Languages } from '../common/Languages';
 
 export const VisitorCheck = (props) => {
@@ -13,7 +13,7 @@ export const VisitorCheck = (props) => {
                 </Col>
                 <Col className="text-right"><Languages /></Col>
             </Row>
-            <Row className="h-100">
+            <Row className="visit-choice">
                 <Col className="visit-type align-self-center">
                     <Button size="lg" block color="primary">
                         <span><FontAwesomeIcon icon={["fas", "sign-in-alt"]} className="mr-2" /></span>

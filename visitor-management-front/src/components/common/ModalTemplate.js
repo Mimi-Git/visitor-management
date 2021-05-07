@@ -17,7 +17,7 @@ export const ModalTemplate = (props) => {
     const toggle = () => setModal(!modal);
 
     return (
-        <div>
+        <>
             <Button color={buttonColor} onClick={toggle}>{buttonLabel}</Button>
             <Modal isOpen={modal} toggle={toggle} className={className}>
                 <ModalHeader toggle={toggle}>{modalTitle}</ModalHeader>
@@ -29,6 +29,6 @@ export const ModalTemplate = (props) => {
                     <Button color="secondary" onClick={toggle}>{modalNoLabel}</Button>
                 </ModalFooter>
             </Modal>
-        </div>
+        </>
     );
 }

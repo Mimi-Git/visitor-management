@@ -5,6 +5,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { VisitorCheck } from './components/visitorcheck/VisitorCheck';
+import { FirstVisit } from './components/firstVisit/FirstVisit';
 
 library.add(fab, fas);
 
@@ -13,6 +14,7 @@ function App() {
     <>
       <Home />
       <VisitorCheck />
+      <FirstVisit />
     </>
   );
 }
