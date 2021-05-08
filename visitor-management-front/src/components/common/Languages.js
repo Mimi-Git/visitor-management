@@ -42,7 +42,7 @@ export const Languages = (props) => {
 
   return (
     <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-      <DropdownToggle color="primary">
+      <DropdownToggle color="primary" size="lg">
         <FontAwesomeIcon icon={["fas", "globe"]} />
       </DropdownToggle>
       <DropdownMenu>

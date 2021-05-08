@@ -101,7 +101,7 @@ export const FirstVisit = (props) => {
     return (
         <section id="first-visit" >
             <div>
-                <Button color="primary"><FontAwesomeIcon icon={["fas", "chevron-left"]} /></Button>
+                <Button size="lg" color="primary"><FontAwesomeIcon icon={["fas", "chevron-left"]} /></Button>
             </div>
             <Row>
                 <Col className="text-center">
@@ -158,7 +158,7 @@ export const FirstVisit = (props) => {
                         </Col>
                     </Row>
                     <FormGroup className="text-center">
-                        <Button id="submit-new" type="submit" color="success">Suivant</Button>
+                        <Button size="lg" id="submit-new" type="submit" color="success">Suivant</Button>
                     </FormGroup>
                 </Form>
             </Container>

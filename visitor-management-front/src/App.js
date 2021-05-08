@@ -6,15 +6,17 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { VisitorCheck } from './components/visitorcheck/VisitorCheck';
 import { FirstVisit } from './components/firstVisit/FirstVisit';
+import { EmployeeSelection } from './components/employeeSelection/EmployeeSelection';
 
 library.add(fab, fas);
 
 function App() {
   return (
     <>
-      <Home />
+      {/* <Home />
       <VisitorCheck />
-      <FirstVisit />
+      <FirstVisit /> */}
+      <EmployeeSelection />
     </>
   );
 }

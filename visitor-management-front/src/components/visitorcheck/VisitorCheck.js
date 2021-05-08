@@ -7,9 +7,9 @@ export const VisitorCheck = (props) => {
 
     return (
         <section id="visitor-check">
-            <Row className="pagger justify-content-between">
+            <Row className="justify-content-between">
                 <Col>
-                    <Button color="success"><FontAwesomeIcon icon={["fas", "chevron-left"]} /></Button>
+                    <Button size="lg" color="success"><FontAwesomeIcon icon={["fas", "chevron-left"]} /></Button>
                 </Col>
                 <Col className="text-right"><Languages /></Col>
             </Row>

@@ -1,0 +1,75 @@
+#employee-selection
+{
+    .employees-row{
+        justify-content: center !important;
+    
+        .scroll {
+            max-height: 78vh;
+            overflow-y: auto;
+        }  
+
+        .employee-content{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 1rem;
+            background-color: transparent;
+            border: 1px solid transparent;
+            padding: 0.5rem 1rem;
+            border-radius: 0.3rem;
+            justify-content: space-between;
+            max-width: 25rem;
+
+            &:hover{
+                border: 1px solid $primary;
+            }
+
+            div{
+                margin: 0.30rem;
+            }
+
+            .avatar 
+            {
+                vertical-align: middle;
+                width: 4rem;
+                height: 4rem;
+                border-radius: 50%;
+            }
+
+            .employee-name{
+                font-size: 1.20rem;
+                font-weight: 500;
+            }
+
+            .employee-department{
+                font-size: 80%;
+                font-weight: 400;
+            }
+        }
+    }  
+}
+
+/* Portrait */
+@media screen and (orientation:portrait) 
+and (max-height: 750px)
+{
+   #employee-selection{
+
+       .scroll {
+           max-height: 68vh;
+           overflow-y: auto;
+        } 
+    }
+}
+/* Landscape */
+@media screen and (orientation:landscape) 
+and (max-height: 750px)
+{
+   #employee-selection{
+
+       .scroll {
+           max-height: 50vh;
+           overflow-y: auto;
+        } 
+    }
+}
