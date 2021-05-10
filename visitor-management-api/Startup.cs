@@ -25,34 +25,17 @@ namespace visitor_management_api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-            });
+            services.SwaggerConfiguration();
 
-            services.AddOptions()
-                    .AddMemoryCache()
-                    .Configure<IpRateLimitOptions>(Configuration.GetSection("IpRateLimiting"))
-                    .AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>()
-                    .AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>()
-                    .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
-                    .AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+            services.IpRateLimitConfiguration(Configuration);
 
-            services.AddDbContext<VisitorAppContext>(opt => opt
-            .UseSqlServer(Configuration.GetConnectionString("VisitorConnection"))
-            .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information));
+            services.DbContextConfiguration(Configuration);
 
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AutoMapperConfiguration();
 
-            services.AddControllers().AddNewtonsoftJson(options =>
-            {
-                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            });
+            services.NewtonsoftJsonConfiguration();
 
-            services.AddScoped<IVisitorRepo, SqlVisitorRepo>()
-                    .AddScoped<IEmployeeRepo, SqlEmployeeRepo>()
-                    .AddScoped<IVisitRepo, SqlVisitRepo>();
+            services.RegistrationConfiguration();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
