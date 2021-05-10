@@ -36,6 +36,8 @@ namespace visitor_management_api
             services.NewtonsoftJsonConfiguration();
 
             services.RegistrationConfiguration();
+
+            services.CorsConfiguration();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -57,6 +59,8 @@ namespace visitor_management_api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
