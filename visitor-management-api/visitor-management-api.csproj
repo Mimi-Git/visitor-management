@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>visitor_management_api</RootNamespace>
+    <UserSecretsId>39e70669-26b2-4acd-a8f6-a61070e868a2</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

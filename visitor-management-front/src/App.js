@@ -13,10 +13,10 @@ library.add(fab, fas);
 function App() {
   return (
     <>
-      {/* <Home />
+      {/* <Home /> */}
       <VisitorCheck />
-      <FirstVisit /> */}
-      <EmployeeSelection />
+      {/* <FirstVisit /> */}
+      {/* <EmployeeSelection /> */}
     </>
   );
 }
