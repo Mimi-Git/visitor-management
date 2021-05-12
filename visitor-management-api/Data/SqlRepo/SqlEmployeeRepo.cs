@@ -33,8 +33,8 @@ namespace visitor_management_api.Data
 
         private IEnumerable<Employee> GetRandomEmployees(int quantity)
         {
-            string[] randomFirtNames = { "Pierre", "David", "Julien", "Gaspard", "Michel", "Marion", "Emilie", "Juliette", "Chloé", "Claire" };
-            string[] randomLastNames = { "Barteaux", "Green", "Wilson", "Watson", "Robinson", "Martin", "Duval", "Luna", "Maaka", "Devereux" };
+            string[] randomFirtNames = { "Gabriel", "Léo", "Raphaël", "Arthur", "Louis", "Lucas", "Adam", "Jules", "Hugo", "Maël", "Liam", "Noah", "Paul", "Ethan", "Tiago", "Sacha", "Gabin", "Nathan", "Mohamed", "Aaron", "Jade", "Louise", "Alice", "Lina", "Chloé", "Rose", "Léa", "Mila", "Ambre", "Mia", "Anna", "Julia", "Inès", "Léna", "Juliette", "Zoé", "Manon", "Agathe" };
+            string[] randomLastNames = { "Martin", "Bernard", "Thomas", "Petit", "Robert", "Richard", "Durand", "Dubois", "Moreau", "Laurent", "Simon", "Michel", "Lefèvre", "Leroy", "Roux", "David", "Bertrand", "Morel", "Fournier", "Girard", "Bonnet", "Dupont", "Lambert", "Fontaine", "Rousseau", "Vincent", "Muller", "Lefevre", "Faure", "Andre", "Mercier", "Blanc", "Guerin", "Boyer", "Garnier", "Chevalier", "Francois", "Legrand", "Gauthier", "Garci" };
             string[] departments = { "Finance", "Réception", "Informatique", "Direction", "QHSE", "Paie", "Services généraux", "Achats", "Comptabilité", "Maintenance" };
 
             Random rnd = new Random();

@@ -1,18 +1,14 @@
-﻿using AutoMapper.Configuration;
+﻿using AspNetCoreRateLimit;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Configuration;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using visitor_management_api.Data;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
-using AspNetCoreRateLimit;
-using Microsoft.AspNetCore.Http;
-using Microsoft.OpenApi.Models;
 
 namespace visitor_management_api
 {
@@ -73,6 +69,12 @@ namespace visitor_management_api
                 builder => builder.WithOrigins(urlAllowed)
                                   .AllowAnyHeader()
                 ));
+        }
+
+        public static void HealthCheckConfiguration(this IServiceCollection services, IConfiguration Configuration)
+        {
+            services.AddHealthChecks()
+                    .AddSqlServer(Configuration.GetConnectionString("VisitorConnection"));
         }
     }
 }

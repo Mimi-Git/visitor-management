@@ -3,8 +3,9 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Row, Col, Button, Input, InputGroup, InputGroupAddon, InputGroupText, Card, CardBody, CardHeader, Spinner } from 'reactstrap';
 
-const BASE_URL = 'http://localhost:5000/api';
-const APP_ID = '{APP_ID}';
+// const BASE_URL = 'https://visitor-management-api.azurewebsites.net/api';
+const BASE_URL = 'https://localhost:5001/api';
+const APP_ID = 'X-ClientId';
 
 const EmployeeSelection = (props) => {
     const [loading, setLoading] = useState(false);
@@ -12,8 +13,7 @@ const EmployeeSelection = (props) => {
 
     useEffect(() => {
         setLoading(true);
-        axios.get(`${BASE_URL}/employees`)
-            // , { headers: { 'app-id': APP_ID } }
+        axios.get(`${BASE_URL}/employees`, { headers: { 'app-id': APP_ID } })
             .then(({ data }) => setData(data))
             .catch(console.error)
             .finally(() => setLoading(false));
