@@ -9,7 +9,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function InputText(props) {
-   const { fieldName, icon, reg, placeholder, error, size } = props;
+   const { fieldName, icon, reg, placeholder, error, size, defaultvalue } =
+      props;
 
    const addon = `${fieldName}-addon`;
 
@@ -28,6 +29,7 @@ function InputText(props) {
             aria-describedby={addon}
             autoComplete="off"
             bsSize={size}
+            defaultValue={defaultvalue}
          />
          <FormFeedback>{error?.message}</FormFeedback>
       </InputGroup>

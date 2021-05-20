@@ -1,4 +1,4 @@
-function useInputsFirstVisitProps(register, errors) {
+function useInputsFirstVisitProps(register, errors, visitor) {
    const firstNameProps = {
       fieldName: "firstname",
       icon: ["fas", "id-card-alt"],
@@ -6,6 +6,7 @@ function useInputsFirstVisitProps(register, errors) {
       placeholder: "Prénom *",
       error: errors.firstname,
       size: "lg",
+      defaultvalue: visitor.firstname,
    };
 
    const lastNameProps = {
@@ -15,6 +16,7 @@ function useInputsFirstVisitProps(register, errors) {
       placeholder: "Nom de famille *",
       error: errors.lastname,
       size: "lg",
+      defaultvalue: visitor.lastname,
    };
 
    const phoneNumberProps = {
@@ -24,6 +26,7 @@ function useInputsFirstVisitProps(register, errors) {
       placeholder: "Numéro de téléphone",
       error: errors.phonenumber,
       size: "lg",
+      defaultvalue: visitor.phonenumber,
    };
 
    const emailProps = {
@@ -33,6 +36,7 @@ function useInputsFirstVisitProps(register, errors) {
       placeholder: "Email *",
       error: errors.email,
       size: "lg",
+      defaultvalue: visitor.email,
    };
 
    const companyProps = {
@@ -42,6 +46,7 @@ function useInputsFirstVisitProps(register, errors) {
       placeholder: "Nom de l'entreprise *",
       error: errors.company,
       size: "lg",
+      defaultvalue: visitor.company,
    };
 
    const visitorTypeProps = {
@@ -57,6 +62,7 @@ function useInputsFirstVisitProps(register, errors) {
          courier: "Coursier",
          other: "Autre",
       },
+      defaultvalue: visitor.visitortype,
    };
 
    return {

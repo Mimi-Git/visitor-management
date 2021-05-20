@@ -14,16 +14,16 @@ import {
 import Employees from "./Employees";
 import GoBackButton from "../common/GoBackButton";
 
-function EmployeeSelection() {
+function EmployeeSelection({ setEmployee }) {
    return (
       <section id="employee-selection">
          <EmployeesHeader />
-         <EmployeesList />
+         <EmployeesList setEmployee={setEmployee} />
       </section>
    );
 }
 
-function EmployeesList() {
+function EmployeesList({ setEmployee }) {
    return (
       <Row className="mt-2 employees-row">
          <Col lg="9" className="mt-2">
@@ -31,7 +31,7 @@ function EmployeesList() {
                <CardHeader tag="h2" className="text-center">
                   Personne visitée
                </CardHeader>
-               <Employees />
+               <Employees setEmployee={setEmployee} />
             </Card>
          </Col>
       </Row>

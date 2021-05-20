@@ -19,9 +19,9 @@ import { useHistory } from "react-router-dom";
 import useInputsFirstVisitProps from "../hooks/useInputsFirstVisitProps";
 import useYup from "../hooks/useYup";
 
-function FirstVisit() {
+function FirstVisit({ visitor, setVisitor }) {
    const history = useHistory();
-   const { register, handleSubmit, errors, reset } = useYup();
+   const { register, handleSubmit, errors, reset } = useYup(visitor);
    const {
       firstNameProps,
       lastNameProps,
@@ -29,11 +29,11 @@ function FirstVisit() {
       emailProps,
       companyProps,
       visitorTypeProps,
-   } = useInputsFirstVisitProps(register, errors);
+   } = useInputsFirstVisitProps(register, errors, visitor);
 
    const onSubmit = (data, e) => {
-      // Add to the context
-      console.log(data);
+      e.preventDefault();
+      setVisitor(data);
       history.push("/employeeselection");
    };
 
@@ -68,7 +68,10 @@ function FirstVisit() {
                      <InputText {...companyProps} />
                   </Col>
                   <Col md="6">
-                     <VisitorTypeInputSelect {...visitorTypeProps} />
+                     <VisitorTypeInputSelect
+                        visitorTypeProps={visitorTypeProps}
+                        visitor={visitor}
+                     />
                   </Col>
                </Row>
                <FormGroup className="text-center">
@@ -89,7 +92,7 @@ function FirstVisit() {
 
 export default FirstVisit;
 
-function VisitorTypeInputSelect(visitorTypeProps) {
+function VisitorTypeInputSelect({ visitorTypeProps, visitor }) {
    return (
       <InputGroup className="mb-3">
          <InputGroupAddon addonType="prepend">
@@ -108,7 +111,7 @@ function VisitorTypeInputSelect(visitorTypeProps) {
             autoComplete="off"
             bsSize={visitorTypeProps.size}
             type="select"
-            defaultValue=""
+            defaultValue={visitor.visitortype}
          >
             <option hidden value="">
                {visitorTypeProps.placeholder}
