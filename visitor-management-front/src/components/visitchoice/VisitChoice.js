@@ -4,18 +4,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 
-function VisitorCheck() {
+function VisitChoice() {
    return (
       <section id="visitor-check">
          <GenericHeader />
-         <VisitorChoiceCheckin />
+         <FirstOrReturnChoice />
       </section>
    );
 }
 
-export default VisitorCheck;
+export default VisitChoice;
 
-function VisitorChoiceCheckin() {
+function FirstOrReturnChoice() {
    return (
       <Row className="visit-choice">
          <Col className="visit-type align-self-center">

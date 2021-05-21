@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Home from "./components/home/Home";
-import VisitorCheck from "./components/visitorcheck/VisitorCheck";
+import VisitChoice from "./components/visitchoice/VisitChoice";
 import FirstVisit from "./components/firstVisit/FirstVisit";
 import EmployeeSelection from "./components/employeeSelection/EmployeeSelection";
 
@@ -42,8 +42,8 @@ function App() {
          <Route path="/" exact>
             <Home />
          </Route>
-         <Route path="/visitorcheck" exact>
-            <VisitorCheck />
+         <Route path="/visitchoice" exact>
+            <VisitChoice />
          </Route>
          <Route path="/firstvisit" exact>
             <FirstVisit visitor={visitor} setVisitor={setVisitor} />

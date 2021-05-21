@@ -31,7 +31,7 @@ function HomeGreetings() {
 
 function Checkin() {
    return (
-      <Link to="/visitorcheck">
+      <Link to="/visitchoice">
          <Button size="lg" color="success">
             S'enregistrer{" "}
             <span>
