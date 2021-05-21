@@ -18,10 +18,12 @@ import GoBackButton from "../common/GoBackButton";
 import { useHistory } from "react-router-dom";
 import useInputsFirstVisitProps from "../hooks/useInputsFirstVisitProps";
 import useYup from "../hooks/useYup";
+import { useVisitor } from "../contexts/visitorContext";
 
-function FirstVisit({ visitor, setVisitor }) {
+function FirstVisit() {
+   const { setVisitor } = useVisitor();
    const history = useHistory();
-   const { register, handleSubmit, errors, reset } = useYup(visitor);
+   const { register, handleSubmit, errors, reset } = useYup();
    const {
       firstNameProps,
       lastNameProps,
@@ -29,7 +31,7 @@ function FirstVisit({ visitor, setVisitor }) {
       emailProps,
       companyProps,
       visitorTypeProps,
-   } = useInputsFirstVisitProps(register, errors, visitor);
+   } = useInputsFirstVisitProps(register, errors);
 
    const onSubmit = (data, e) => {
       e.preventDefault();
@@ -70,7 +72,6 @@ function FirstVisit({ visitor, setVisitor }) {
                   <Col md="6">
                      <VisitorTypeInputSelect
                         visitorTypeProps={visitorTypeProps}
-                        visitor={visitor}
                      />
                   </Col>
                </Row>
@@ -92,7 +93,8 @@ function FirstVisit({ visitor, setVisitor }) {
 
 export default FirstVisit;
 
-function VisitorTypeInputSelect({ visitorTypeProps, visitor }) {
+function VisitorTypeInputSelect({ visitorTypeProps }) {
+   const { visitor } = useVisitor();
    return (
       <InputGroup className="mb-3">
          <InputGroupAddon addonType="prepend">

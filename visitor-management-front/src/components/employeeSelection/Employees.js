@@ -1,9 +1,9 @@
 import Employee from "./Employee";
 import React from "react";
 import { Row, CardBody, Spinner } from "reactstrap";
-import useGetRequest, { REQUEST_STATUS } from "../hooks/useGetRequest";
+import useGetRequest, { REQUEST_STATUS } from "../hooks/useAxiosRequest";
 
-function Employees({ setEmployee }) {
+function Employees() {
    const { data, requestStatus, error } = useGetRequest(`employees`);
 
    return (
@@ -25,11 +25,7 @@ function Employees({ setEmployee }) {
          ) : null}
          <Row>
             {Object.values(data).map((employee) => (
-               <Employee
-                  key={employee.id}
-                  employee={employee}
-                  setEmployee={setEmployee}
-               />
+               <Employee key={employee.id} employee={employee} />
             ))}
          </Row>
       </CardBody>

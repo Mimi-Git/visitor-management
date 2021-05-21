@@ -1,4 +1,8 @@
-function useInputsFirstVisitProps(register, errors, visitor) {
+import { useVisitor } from "../contexts/visitorContext";
+
+function useInputsFirstVisitProps(register, errors) {
+   const { visitor } = useVisitor();
+
    const firstNameProps = {
       fieldName: "firstname",
       icon: ["fas", "id-card-alt"],

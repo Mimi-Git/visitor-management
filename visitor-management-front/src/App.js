@@ -11,32 +11,7 @@ import { Route, Switch } from "react-router-dom";
 
 library.add(fab, fas);
 
-const defaultVisitor = {
-   firstname: "",
-   lastname: "",
-   phonenumber: "",
-   email: "",
-   company: "",
-   visitortype: "",
-};
-
-const defaultEmployee = {
-   id: -1,
-   firstName: "",
-   lastName: "",
-   companyName: "",
-   email: "",
-   phoneNumber: null,
-   department: "",
-};
-
 function App() {
-   const [visitor, setVisitor] = useState(defaultVisitor);
-   const [employee, setEmployee] = useState(defaultEmployee);
-
-   console.log(visitor);
-   console.log(employee);
-
    return (
       <Switch>
          <Route path="/" exact>
@@ -46,10 +21,10 @@ function App() {
             <VisitChoice />
          </Route>
          <Route path="/firstvisit" exact>
-            <FirstVisit visitor={visitor} setVisitor={setVisitor} />
+            <FirstVisit />
          </Route>
          <Route path="/employeeselection" exact>
-            <EmployeeSelection setEmployee={setEmployee} />
+            <EmployeeSelection />
          </Route>
          <Route path="*">
             <Home />

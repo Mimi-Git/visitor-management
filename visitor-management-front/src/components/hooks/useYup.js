@@ -1,8 +1,11 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useVisitor } from "../contexts/visitorContext";
 
-function useYup(visitor) {
+function useYup() {
+   const { visitor } = useVisitor();
+
    const phoneRegExp =
       /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/;
 
