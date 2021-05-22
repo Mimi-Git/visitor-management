@@ -1,30 +1,53 @@
 import Employee from "./Employee";
 import React from "react";
 import { Row, CardBody, Spinner } from "reactstrap";
-import useGetRequest, { REQUEST_STATUS } from "../hooks/useAxiosRequest";
+import axios from "axios";
+import { useQuery } from "react-query";
 
-function Employees() {
-   const { data, requestStatus, error } = useGetRequest(`employees`);
+function Employees({ searchedEmployee }) {
+   const { status, data, error } = useQuery("fetchEmployees", async () => {
+      const { data } = await axios.get(`https://localhost:5001/api/employees/`);
+      return data;
+   });
+
+   if (status === "error") {
+      return (
+         <CardBody className="scroll text-center text-danger">
+            <b>{error.toString()}</b>
+         </CardBody>
+      );
+   }
+
+   if (status === "loading") {
+      return (
+         <CardBody className="scroll text-center">
+            <Spinner color="primary" />
+         </CardBody>
+      );
+   }
+
+   const employeesFiltered =
+      status === "loading" || status === "error"
+         ? []
+         : Object.values(data).filter((employee) => {
+              const fullName = `${employee.firstName} ${employee.lastName}`;
+              return NormalizeString(fullName).includes(
+                 NormalizeString(searchedEmployee)
+              );
+           });
+
+   if (status === "success" && employeesFiltered.length === 0) {
+      return (
+         <CardBody className="scroll text-center text-danger">
+            <b>Aucun employée n'a été trouvé</b>
+         </CardBody>
+      );
+   }
 
    return (
       <CardBody className="scroll">
-         {requestStatus === REQUEST_STATUS.FAILURE ? (
-            <div className="text-center text-danger">
-               <b>{error.toString()}</b>
-            </div>
-         ) : null}
-         {requestStatus === REQUEST_STATUS.LOADING ? (
-            <div className="text-center">
-               <Spinner color="primary" />
-            </div>
-         ) : null}
-         {data.length === 0 && requestStatus === REQUEST_STATUS.SUCCESS ? (
-            <div className="text-center text-danger">
-               <b>Pas d'employées dans la base</b>
-            </div>
-         ) : null}
          <Row>
-            {Object.values(data).map((employee) => (
+            {employeesFiltered.map((employee) => (
                <Employee key={employee.id} employee={employee} />
             ))}
          </Row>
@@ -33,3 +56,10 @@ function Employees() {
 }
 
 export default Employees;
+
+function NormalizeString(toNormalize) {
+   return toNormalize
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+}
