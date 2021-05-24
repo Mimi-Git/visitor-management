@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Button, Col, Row } from "reactstrap";
 import DateTime from "../common/DateTime";
-import { ModalTemplate } from "../common/ModalTemplate";
+import ModalRestore from "./ModalRestore";
 import { Languages } from "../common/Languages";
 import { Link } from "react-router-dom";
 
@@ -43,17 +43,6 @@ function Checkin() {
 }
 
 function HomeFooter() {
-   const restoreData = {
-      buttonColor: "danger",
-      buttonLabel: <FontAwesomeIcon icon={["fas", "minus-circle"]} />,
-      className: "test",
-      modalTitle: "Etes-vous sûr⸱e ? (Démo uniquement)",
-      modalBody:
-         "Voulez-vous vraiment restaurer les données de l'application ? Cela aura pour conséquense de supprimer tous les visiteurs, visites et de reinitialiser les employés par défaut.",
-      modalYesLabel: "Restaurer",
-      modalNoLabel: "Annuler",
-   };
-
    return (
       <div className="footer">
          <div>
@@ -75,7 +64,7 @@ function HomeFooter() {
             </Link>
          </div>
          <div className="text-danger">
-            <ModalTemplate {...restoreData} />
+            <ModalRestore />
          </div>
       </div>
    );
