@@ -15,9 +15,14 @@ export function VisitorProvider(props) {
    const [visitor, setVisitor] = useState(defaultVisitor);
    console.log(visitor);
 
+   const setDefaultVisitor = () => {
+      setVisitor(defaultVisitor);
+   };
+
    const contextValue = {
       visitor,
       setVisitor,
+      setDefaultVisitor,
    };
 
    return (

@@ -33,8 +33,7 @@ function FirstVisit() {
       visitorTypeProps,
    } = useInputsFirstVisitProps(register, errors);
 
-   const onSubmit = (data, e) => {
-      e.preventDefault();
+   const onSubmit = (data) => {
       setVisitor(data);
       history.push("/employeeselection");
    };

@@ -3,6 +3,7 @@ import GenericHeader from "../common/GenericHeader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
+import { useVisitor } from "../contexts/visitorContext";
 
 function VisitChoice() {
    return (
@@ -27,9 +28,16 @@ function FirstOrReturnChoice() {
 }
 
 function ReturnVisitNav() {
+   const { setDefaultVisitor } = useVisitor();
    return (
       <Link to="/returnvisit">
-         <Button size="lg" block color="primary" className="mt-3">
+         <Button
+            size="lg"
+            block
+            color="primary"
+            className="mt-3"
+            onClick={setDefaultVisitor}
+         >
             <span>
                <FontAwesomeIcon icon={["fas", "retweet"]} className="mr-2" />
             </span>
@@ -40,9 +48,10 @@ function ReturnVisitNav() {
 }
 
 function FirstVisitNav() {
+   const { setDefaultVisitor } = useVisitor();
    return (
       <Link to="firstvisit">
-         <Button size="lg" block color="primary">
+         <Button size="lg" block color="primary" onClick={setDefaultVisitor}>
             <span>
                <FontAwesomeIcon
                   icon={["fas", "sign-in-alt"]}

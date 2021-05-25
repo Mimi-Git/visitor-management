@@ -6,12 +6,8 @@ function GoBackButton(props) {
    const history = useHistory();
    const { color, size } = props;
 
-   const goBack = () => {
-      history.goBack();
-   };
-
    return (
-      <Button size={size} color={color} onClick={goBack}>
+      <Button size={size} color={color} onClick={() => history.goBack()}>
          <FontAwesomeIcon icon={["fas", "chevron-left"]} />
       </Button>
    );
