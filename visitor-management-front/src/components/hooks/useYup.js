@@ -2,9 +2,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useVisitor } from "../contexts/visitorContext";
+import useGetVisitors from "./visitor/useGetVisitors";
 
 function useYup() {
    const { visitor } = useVisitor();
+   const { query, getVisitorByEmail } = useGetVisitors();
 
    const phoneRegExp =
       /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/;
@@ -32,6 +34,17 @@ function useYup() {
          .string(`L'email doit est une chaine de charactères`)
          .required(`L'email est obligatoire`)
          .email(`L'email est invalide`)
+         .test(
+            "email-exist",
+            "Email déjà utilisé. Veuillez en saisir un autre ou revenir sur la page précédente et selectionner 'Déjà venu⸱e'",
+            function (email) {
+               if (query.isSuccess) {
+                  const visitorExist = getVisitorByEmail(email).length !== 0;
+                  return !visitorExist;
+               }
+               return false;
+            }
+         )
          .default(visitor.email),
       company: yup
          .string(`L'entreprise doit être un chaine de charactères`)

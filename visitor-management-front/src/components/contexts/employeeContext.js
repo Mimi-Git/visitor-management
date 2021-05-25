@@ -16,9 +16,14 @@ export function EmployeeProvider(props) {
    const [employee, setEmployee] = useState(defaultEmployee);
    console.log(employee);
 
+   const setDefaultEmployee = () => {
+      setEmployee(defaultEmployee);
+   };
+
    const contextValue = {
       employee,
       setEmployee,
+      setDefaultEmployee,
    };
 
    return (

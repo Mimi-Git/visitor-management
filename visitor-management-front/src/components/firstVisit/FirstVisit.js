@@ -23,7 +23,7 @@ import { useVisitor } from "../contexts/visitorContext";
 function FirstVisit() {
    const { setVisitor } = useVisitor();
    const history = useHistory();
-   const { register, handleSubmit, errors, reset } = useYup();
+   const { register, handleSubmit, errors } = useYup();
    const {
       firstNameProps,
       lastNameProps,
@@ -43,7 +43,7 @@ function FirstVisit() {
          <GoBackButton size="lg" color="primary" />
          <div>
             <div className="text-center">
-               <h2 className="h2 mt-3 mb-4">Vos coordonées, SVP</h2>
+               <h2 className="h2 mt-3 mb-4">{"Vos coordonées, SVP"}</h2>
             </div>
          </div>
          <Container>
@@ -81,7 +81,7 @@ function FirstVisit() {
                      type="submit"
                      color="success"
                   >
-                     Suivant
+                     {"Suivant"}
                   </Button>
                </FormGroup>
             </Form>
