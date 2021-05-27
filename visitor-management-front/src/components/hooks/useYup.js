@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useVisitor } from "../contexts/visitorContext";
-import useGetVisitors from "./visitor/useGetVisitors";
+import useGetVisitors from "./visitors/useGetVisitors";
 
 function useYup() {
    const { visitor } = useVisitor();

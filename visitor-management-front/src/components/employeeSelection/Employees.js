@@ -1,24 +1,20 @@
 import Employee from "./Employee";
 import React from "react";
 import { Row, CardBody, Spinner } from "reactstrap";
-import axios from "axios";
-import { useQuery } from "react-query";
+import useGetEmployees from "../hooks/employees/useGetEmployees";
 
 function Employees({ searchedEmployee }) {
-   const { status, data, error } = useQuery("fetchEmployees", async () => {
-      const { data } = await axios.get(`https://localhost:5001/api/employees/`);
-      return data;
-   });
+   const { query, getEmployeesByNames } = useGetEmployees();
 
-   if (status === "error") {
+   if (query.isError) {
       return (
          <CardBody className="scroll text-center text-danger">
-            <b>{error.toString()}</b>
+            <b>{query.error.toString()}</b>
          </CardBody>
       );
    }
 
-   if (status === "loading") {
+   if (query.isLoading) {
       return (
          <CardBody className="scroll text-center">
             <Spinner color="primary" />
@@ -27,19 +23,14 @@ function Employees({ searchedEmployee }) {
    }
 
    const employeesFiltered =
-      status === "loading" || status === "error"
+      query.isLoading || query.isError
          ? []
-         : Object.values(data).filter((employee) => {
-              const fullName = `${employee.firstName} ${employee.lastName}`;
-              return NormalizeString(fullName).includes(
-                 NormalizeString(searchedEmployee)
-              );
-           });
+         : getEmployeesByNames(searchedEmployee);
 
-   if (status === "success" && employeesFiltered.length === 0) {
+   if (query.isSuccess && employeesFiltered.length === 0) {
       return (
          <CardBody className="scroll text-center text-danger">
-            <b>Aucun employée n'a été trouvé</b>
+            <b>{"Aucun employée n'a été trouvé"}</b>
          </CardBody>
       );
    }
@@ -56,10 +47,3 @@ function Employees({ searchedEmployee }) {
 }
 
 export default Employees;
-
-function NormalizeString(toNormalize) {
-   return toNormalize
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
-}

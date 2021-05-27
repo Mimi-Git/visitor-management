@@ -30,7 +30,7 @@ function EmployeesList({ searchedEmployee }) {
          <Col lg="9" className="mt-2">
             <Card style={{ color: "#212529" }}>
                <CardHeader tag="h2" className="text-center">
-                  Personne visitée
+                  {"Personne visitée"}
                </CardHeader>
                <Employees searchedEmployee={searchedEmployee} />
             </Card>
