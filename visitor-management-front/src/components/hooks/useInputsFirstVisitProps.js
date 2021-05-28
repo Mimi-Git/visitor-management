@@ -4,33 +4,33 @@ function useInputsFirstVisitProps(register, errors) {
    const { visitor } = useVisitor();
 
    const firstNameProps = {
-      fieldName: "firstname",
+      fieldName: "firstName",
       icon: ["fas", "id-card-alt"],
-      reg: register("firstname"),
+      reg: register("firstName"),
       placeholder: "Prénom *",
-      error: errors.firstname,
+      error: errors.firstName,
       size: "lg",
-      defaultvalue: visitor.firstname,
+      defaultvalue: visitor.firstName,
    };
 
    const lastNameProps = {
-      fieldName: "lastname",
+      fieldName: "lastName",
       icon: ["fas", "address-book"],
-      reg: register("lastname"),
+      reg: register("lastName"),
       placeholder: "Nom de famille *",
-      error: errors.lastname,
+      error: errors.lastName,
       size: "lg",
-      defaultvalue: visitor.lastname,
+      defaultvalue: visitor.lastName,
    };
 
    const phoneNumberProps = {
-      fieldName: "phonenumber",
+      fieldName: "phoneNumber",
       icon: ["fas", "phone-square-alt"],
-      reg: register("phonenumber"),
+      reg: register("phoneNumber"),
       placeholder: "Numéro de téléphone",
-      error: errors.phonenumber,
+      error: errors.phoneNumber,
       size: "lg",
-      defaultvalue: visitor.phonenumber,
+      defaultvalue: visitor.phoneNumber,
    };
 
    const emailProps = {
@@ -43,22 +43,22 @@ function useInputsFirstVisitProps(register, errors) {
       defaultvalue: visitor.email,
    };
 
-   const companyProps = {
-      fieldName: "company",
+   const companyNameProps = {
+      fieldName: "companyName",
       icon: ["fas", "building"],
-      reg: register("company"),
+      reg: register("companyName"),
       placeholder: "Nom de l'entreprise *",
-      error: errors.company,
+      error: errors.companyName,
       size: "lg",
-      defaultvalue: visitor.company,
+      defaultvalue: visitor.companyName,
    };
 
    const visitorTypeProps = {
-      fieldName: "visitortype",
+      fieldName: "visitorType",
       icon: ["fas", "building"],
-      reg: register("visitortype"),
+      reg: register("visitorType"),
       placeholder: "Type de visiteur *",
-      error: errors.visitortype,
+      error: errors.visitorType,
       size: "lg",
       options: {
          visitor: "Visiteur",
@@ -66,7 +66,7 @@ function useInputsFirstVisitProps(register, errors) {
          courier: "Coursier",
          other: "Autre",
       },
-      defaultvalue: visitor.visitortype,
+      defaultvalue: visitor.visitorType,
    };
 
    return {
@@ -74,7 +74,7 @@ function useInputsFirstVisitProps(register, errors) {
       lastNameProps,
       phoneNumberProps,
       emailProps,
-      companyProps,
+      companyNameProps,
       visitorTypeProps,
    };
 }

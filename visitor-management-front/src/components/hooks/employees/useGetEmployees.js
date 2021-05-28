@@ -2,7 +2,9 @@ import axios from "axios";
 import { useQuery } from "react-query";
 
 const fetchEmployees = () =>
-   axios.get(`https://localhost:5001/api/employees/`).then((res) => res.data);
+   axios
+      .get(`${process.env.REACT_APP_API_URL}employees/`)
+      .then((res) => res.data);
 
 export default function useGetEmployees() {
    const query = useQuery("employees", () => fetchEmployees());

@@ -8,7 +8,7 @@ export default function useRestoreData() {
    const mutation = useMutation(
       () =>
          axios
-            .delete(`https://localhost:5001/api/restoredatas`)
+            .delete(`${process.env.REACT_APP_API_URL}restoredatas`)
             .then((res) => res.data),
       {}
    );

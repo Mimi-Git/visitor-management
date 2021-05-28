@@ -2,7 +2,9 @@ import axios from "axios";
 import { useQuery } from "react-query";
 
 export const fetchVisitors = () =>
-   axios.get(`https://localhost:5001/api/visitors/`).then((res) => res.data);
+   axios
+      .get(`${process.env.REACT_APP_API_URL}visitors/`)
+      .then((res) => res.data);
 
 export default function useGetVisitors() {
    const query = useQuery("visitors", () => fetchVisitors());

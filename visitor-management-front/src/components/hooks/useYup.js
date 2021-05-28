@@ -12,23 +12,23 @@ function useYup() {
       /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/;
 
    const schema = yup.object().shape({
-      firstname: yup
+      firstName: yup
          .string(`Le prénom doit être un chaine de charactères`)
          .required(`Le prénom est obligatoire`)
          .min(2, `Le prénom doit contenir au moins 2 charactères`)
-         .default(visitor.firstname),
-      lastname: yup
+         .default(visitor.firstName),
+      lastName: yup
          .string(`Le nom de famille doit être un chaine de charactères`)
          .required(`Le nom de famille est obligatoire`)
          .min(2, `Le nom de famille doit contenir au moins 2 charactères`)
-         .default(visitor.lastname),
-      phonenumber: yup.lazy((value) =>
+         .default(visitor.lastName),
+      phoneNumber: yup.lazy((value) =>
          !value
-            ? yup.string().default(visitor.phonenumber)
+            ? yup.string().default(visitor.phoneNumber).nullable()
             : yup
                  .string()
                  .matches(phoneRegExp, "Le numéro est invalide")
-                 .default(visitor.phonenumber)
+                 .default(visitor.phoneNumber)
       ),
       email: yup
          .string(`L'email doit est une chaine de charactères`)
@@ -46,19 +46,19 @@ function useYup() {
             }
          )
          .default(visitor.email),
-      company: yup
+      companyName: yup
          .string(`L'entreprise doit être un chaine de charactères`)
          .required(`L'entreprise est obligatoire`)
          .min(2, `L'entreprise doit contenir au moins 2 charactères`)
-         .default(visitor.company),
-      visitortype: yup
+         .default(visitor.companyName),
+      visitorType: yup
          .string(`Choix invalide`)
          .required(`Le type de visiteur est obligatoire`)
          .matches(
             /visitor|contractor|courier|other/,
             "Le type de visiteur est obligatoire"
          )
-         .default(visitor.visitortype),
+         .default(visitor.visitorType),
    });
 
    const {

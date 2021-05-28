@@ -29,12 +29,12 @@ function FirstVisit() {
       lastNameProps,
       phoneNumberProps,
       emailProps,
-      companyProps,
+      companyNameProps,
       visitorTypeProps,
    } = useInputsFirstVisitProps(register, errors);
 
-   const onSubmit = (data) => {
-      setVisitor(data);
+   const onSubmit = (newVisitor) => {
+      setVisitor(newVisitor);
       history.push("/employeeselection");
    };
 
@@ -66,7 +66,7 @@ function FirstVisit() {
                </Row>
                <Row>
                   <Col md="6">
-                     <InputText {...companyProps} />
+                     <InputText {...companyNameProps} />
                   </Col>
                   <Col md="6">
                      <VisitorTypeInputSelect
@@ -112,7 +112,7 @@ function VisitorTypeInputSelect({ visitorTypeProps }) {
             autoComplete="off"
             bsSize={visitorTypeProps.size}
             type="select"
-            defaultValue={visitor.visitortype}
+            defaultValue={visitor.visitorType}
          >
             <option hidden value="">
                {visitorTypeProps.placeholder}

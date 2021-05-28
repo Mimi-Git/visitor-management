@@ -3,12 +3,13 @@ import React, { useState, useContext } from "react";
 const VisitorContext = React.createContext(null);
 
 const defaultVisitor = {
-   firstname: "",
-   lastname: "",
-   phonenumber: "",
+   id: -1,
+   firstName: "",
+   lastName: "",
+   phoneNumber: null,
    email: "",
-   company: "",
-   visitortype: "",
+   companyName: "",
+   visitorType: "",
 };
 
 export function VisitorProvider(props) {
