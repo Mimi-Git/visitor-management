@@ -7,10 +7,10 @@ const fetchEmployees = () =>
       .then((res) => res.data);
 
 export default function useGetEmployees() {
-   const query = useQuery("employees", () => fetchEmployees());
+   const queryGetEmployee = useQuery("employees", () => fetchEmployees());
 
    const getEmployeesByNames = (searchedEmployee) => {
-      return query.data.filter((employee) => {
+      return queryGetEmployee.data.filter((employee) => {
          const fullName = `${employee.firstName} ${employee.lastName}`;
          return NormalizeString(fullName).includes(
             NormalizeString(searchedEmployee)
@@ -18,7 +18,7 @@ export default function useGetEmployees() {
       });
    };
 
-   return { query, getEmployeesByNames };
+   return { queryGetEmployee, getEmployeesByNames };
 }
 
 function NormalizeString(toNormalize) {

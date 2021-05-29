@@ -16,9 +16,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import InputText from "../common/InputText";
 import GoBackButton from "../common/GoBackButton";
 import { useHistory } from "react-router-dom";
-import useInputsFirstVisitProps from "../hooks/useInputsFirstVisitProps";
-import useYup from "../hooks/useYup";
-import { useVisitor } from "../contexts/visitorContext";
+import useInputsFirstVisitProps from "../../hooks/useInputsFirstVisitProps";
+import useYup from "../../hooks/useYup";
+import { useVisitor } from "../../contexts/visitorContext";
 
 function FirstVisit() {
    const { setVisitor } = useVisitor();

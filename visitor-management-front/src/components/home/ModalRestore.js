@@ -8,7 +8,7 @@ import {
    ModalFooter,
    Spinner,
 } from "reactstrap";
-import useRestoreData from "../hooks/useRestoreData";
+import useRestoreData from "../../hooks/useRestoreData";
 
 function ModalRestore() {
    const { modal, toggle, onRestore, mutation } = useRestoreData();
@@ -34,7 +34,7 @@ function ModalRestore() {
                   onClick={onRestore}
                >
                   {mutation.isLoading ? (
-                     <Spinner size="sm" />
+                     <Spinner />
                   ) : mutation.isError ? (
                      "Erreur !"
                   ) : mutation.isSuccess ? (

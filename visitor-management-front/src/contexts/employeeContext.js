@@ -3,7 +3,6 @@ import React, { useContext, useState } from "react";
 const EmployeeContext = React.createContext(null);
 
 const defaultEmployee = {
-   id: -1,
    firstName: "",
    lastName: "",
    companyName: "",
@@ -14,7 +13,6 @@ const defaultEmployee = {
 
 export function EmployeeProvider(props) {
    const [employee, setEmployee] = useState(defaultEmployee);
-   console.log(employee);
 
    const setDefaultEmployee = () => {
       setEmployee(defaultEmployee);

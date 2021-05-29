@@ -1,20 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Col } from "reactstrap";
-import { useHistory } from "react-router-dom";
-import { useEmployee } from "../contexts/employeeContext";
 
-function Employee({ employee }) {
-   const history = useHistory();
-   const { setEmployee } = useEmployee();
-
-   function handleClick() {
-      setEmployee(employee);
-      history.push("/finalCheck");
-   }
-
+function Employee({ employee, handleClick }) {
    return (
       <Col sm="12" md="6" xl="4">
-         <button className="employee-content  w-100" onClick={handleClick}>
+         <button
+            className="employee-content  w-100"
+            onClick={() => handleClick(employee)}
+         >
             <EmployeeAvatar id={employee.id} />
             <EmployeeInfo
                firstName={employee.firstName}
@@ -25,6 +18,7 @@ function Employee({ employee }) {
                <FontAwesomeIcon icon={["fas", "chevron-right"]} />
             </div>
          </button>
+         {}
       </Col>
    );
 }

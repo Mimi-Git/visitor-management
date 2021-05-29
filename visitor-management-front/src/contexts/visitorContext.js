@@ -3,7 +3,6 @@ import React, { useState, useContext } from "react";
 const VisitorContext = React.createContext(null);
 
 const defaultVisitor = {
-   id: -1,
    firstName: "",
    lastName: "",
    phoneNumber: null,
@@ -14,7 +13,6 @@ const defaultVisitor = {
 
 export function VisitorProvider(props) {
    const [visitor, setVisitor] = useState(defaultVisitor);
-   console.log(visitor);
 
    const setDefaultVisitor = () => {
       setVisitor(defaultVisitor);

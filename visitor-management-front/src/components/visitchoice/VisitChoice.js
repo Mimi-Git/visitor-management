@@ -3,7 +3,7 @@ import GenericHeader from "../common/GenericHeader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
-import { useVisitor } from "../contexts/visitorContext";
+import { useVisitor } from "../../contexts/visitorContext";
 
 function VisitChoice() {
    return (
