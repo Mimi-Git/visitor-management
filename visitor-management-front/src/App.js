@@ -3,6 +3,7 @@ import Home from "./components/home/Home";
 import VisitChoice from "./components/visitchoice/VisitChoice";
 import FirstVisit from "./components/firstVisit/FirstVisit";
 import EmployeeSelection from "./components/employeeSelection/EmployeeSelection";
+import FinalScreen from "./components/finalscreen/FinalScreen";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
@@ -25,6 +26,9 @@ function App() {
          </Route>
          <Route path="/employeeselection" exact>
             <EmployeeSelection />
+         </Route>
+         <Route path="/finalscreen" exact>
+            <FinalScreen />
          </Route>
          <Route path="*">
             <Home />
