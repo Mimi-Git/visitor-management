@@ -87,5 +87,10 @@ namespace visitor_management_api.Data
         {
             throw new NotImplementedException();
         }
+
+        public Visitor GetVisitorByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

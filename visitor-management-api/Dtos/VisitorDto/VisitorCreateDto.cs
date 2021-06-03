@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using visitor_management_api.Models;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace visitor_management_api.Dtos
 {
@@ -24,7 +22,5 @@ namespace visitor_management_api.Dtos
 
         [Phone]
         public string PhoneNumber { get; set; }
-
-        public IEnumerable<Visit> Visits { get; set; }
     }
 }

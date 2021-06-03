@@ -63,11 +63,9 @@ namespace visitor_management_api
 
         public static void CorsConfiguration(this IServiceCollection services)
         {
-            var urlAllowed = new string[] { "https://visitor-management.netlify.app" };
             services.AddCors(options =>
                 options.AddDefaultPolicy(
-                builder => builder.WithOrigins(urlAllowed)
-                                  .AllowAnyHeader()
+                builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()
                 ));
         }
 

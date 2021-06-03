@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using visitor_management_api.Models;
@@ -41,7 +42,6 @@ namespace visitor_management_api.Data
 
         public IEnumerable<Visitor> GetAllVisitors()
         {
-            //var visitors = _context.Visitors.Include(v => v.Visits)
             var visitors = _context.Visitors.ToList();
 
             return visitors;
@@ -49,7 +49,6 @@ namespace visitor_management_api.Data
 
         public Visitor GetVisitorById(int id)
         {
-            //return _context.Visitors.Include(v => v.Visits)
             return _context.Visitors.FirstOrDefault(v => v.Id == id);
         }
 
@@ -60,6 +59,11 @@ namespace visitor_management_api.Data
 
         public void UpdateVisitor(Visitor visitor)
         {
+        }
+
+        public Visitor GetVisitorByEmail(string email)
+        {
+            return _context.Visitors.Include(v => v.Visits).FirstOrDefault(v => v.Email == email);
         }
     }
 }

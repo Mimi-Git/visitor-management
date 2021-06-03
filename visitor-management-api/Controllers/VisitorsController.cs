@@ -51,6 +51,21 @@ namespace visitor_management_api.Controllers
             }
         }
 
+        [HttpGet("getbyemail/{email}", Name = "GetVisitorByEmail")]
+        public ActionResult<VisitorReadDtoWithVisits> GetVisitorByEmail(string email)
+        {
+            var visitorItem = _repository.GetVisitorByEmail(email);
+
+            if (visitorItem != null)
+            {
+                return Ok(_mapper.Map<VisitorReadDtoWithVisits>(visitorItem));
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
         [HttpPost]
         public ActionResult<VisitorReadDto> CreateVisitor(VisitorCreateDto visitorCreateDto)
         {

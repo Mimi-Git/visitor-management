@@ -11,6 +11,8 @@ namespace visitor_management_api.Data
 
         Visitor GetVisitorById(int id);
 
+        Visitor GetVisitorByEmail(string email);
+
         void CreateVisitor(Visitor visitor);
 
         void UpdateVisitor(Visitor visitor);
