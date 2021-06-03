@@ -6,7 +6,7 @@ import useGetVisitors from "./visitors/useGetVisitors";
 
 function useYup() {
    const { visitor } = useVisitor();
-   const { query, getVisitorByEmail } = useGetVisitors();
+   const { queryGetVisitors, getVisitorByEmail } = useGetVisitors();
 
    const phoneRegExp =
       /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/;
@@ -31,14 +31,14 @@ function useYup() {
                  .default(visitor.phoneNumber)
       ),
       email: yup
-         .string(`L'email doit est une chaine de charactères`)
+         .string(`L'email doit être une chaine de charactères`)
          .required(`L'email est obligatoire`)
          .email(`L'email est invalide`)
          .test(
             "email-exist",
             "Email déjà utilisé. Veuillez en saisir un autre ou revenir sur la page précédente et selectionner 'Déjà venu⸱e'",
             function (email) {
-               if (query.isSuccess) {
+               if (queryGetVisitors.isSuccess) {
                   const visitorExist = getVisitorByEmail(email).length !== 0;
                   return !visitorExist;
                }

@@ -1,50 +1,45 @@
 import { useVisitor } from "../../contexts/visitorContext";
+import { useEmployee } from "../../contexts/employeeContext";
 import { useHistory } from "react-router-dom";
 import { Button, Card, CardBody, CardFooter, CardHeader } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEmployee } from "../../contexts/employeeContext";
 
 function FinalScreen() {
-   const { visitor, setDefaultVisitor } = useVisitor();
-   const { employee, setDefaultEmployee } = useEmployee();
+   const { setDefaultVisitor } = useVisitor();
+   const { setDefaultEmployee } = useEmployee();
 
    const history = useHistory();
    const display = history.location.state.display;
+   const visitor = history.location.state.visitor;
+   const employee = history.location.state.employee;
 
-   const resetAppState = () => {
+   function resetAppState() {
       setDefaultEmployee();
       setDefaultVisitor();
-   };
+   }
 
-   const handleClick = () => {
+   function handleClick() {
       resetAppState();
       history.push("/home");
-   };
+   }
 
    return (
-      <section
-         id="final-screen"
-         style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-         }}
-      >
+      <section id="final-screen">
          <Card>
             <CardHeader className="text-dark">
-               <h2>Merci {visitor.firstName} !</h2>
+               <h3>Merci {visitor.firstName} !</h3>
             </CardHeader>
             <CardBody>
-               <h3 className="text-dark">
+               <h4 className="text-dark">
                   Vous êtes maintenant enregistré{" "}
                   {display === "checked-out" && "comme sortant"}
                   {" !"}
-               </h3>
-               <h5 className="text-muted">
+               </h4>
+               <h6 className="text-muted">
                   {display === "checked-in"
-                     ? `${employee.firstName} ${employee.lastName} a été notifier de votre arrivée.`
+                     ? `${employee.firstName} ${employee.lastName} a été notifié de votre arrivée.`
                      : "A bientôt dans notre entreprise."}
-               </h5>
+               </h6>
             </CardBody>
             <CardFooter>
                <Button size="lg" block color="success" onClick={handleClick}>

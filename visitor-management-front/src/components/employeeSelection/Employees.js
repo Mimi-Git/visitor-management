@@ -58,7 +58,11 @@ function Employees({ searchedEmployee }) {
          createVisit(newVisit).then(() =>
             setTimeout(() => {
                setModal(false);
-               history.push("/finalscreen", { display: "checked-in" });
+               history.push("/finalscreen", {
+                  display: "checked-in",
+                  visitor,
+                  employee,
+               });
             }, 3000)
          );
       }

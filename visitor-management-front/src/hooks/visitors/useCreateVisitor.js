@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useMutation } from "react-query";
-import { useVisitor } from "../../contexts/visitorContext";
 
 export const postVisitor = (newVisitor) =>
    axios

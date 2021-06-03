@@ -34,7 +34,7 @@ function ModalRestore() {
                   onClick={onRestore}
                >
                   {mutation.isLoading ? (
-                     <Spinner />
+                     <Spinner size="sm" />
                   ) : mutation.isError ? (
                      "Erreur !"
                   ) : mutation.isSuccess ? (
