@@ -1,11 +1,13 @@
-import { ModalBody, Spinner, Alert } from "reactstrap";
+import { ModalBody, Spinner } from "reactstrap";
 import { useHistory } from "react-router-dom";
+import AlertTemplate from "../common/AlertTemplate";
 
 function ModalCheckOutBody({
    queryGetVisitorByEmail,
    mutationUpdateVisit,
    updateVisit,
    toggle,
+   getCurrentVisit,
 }) {
    const history = useHistory();
 
@@ -15,7 +17,8 @@ function ModalCheckOutBody({
             queryGetVisitorByEmail,
             mutationUpdateVisit,
             updateVisit,
-            redirectToFinalScreen
+            redirectToFinalScreen,
+            getCurrentVisit
          )}
       </ModalBody>
    );
@@ -37,7 +40,8 @@ function getBody(
    queryGetVisitorByEmail,
    mutationUpdateVisit,
    updateVisit,
-   redirectToFinalScreen
+   redirectToFinalScreen,
+   getCurrentVisit
 ) {
    var checkingOutLoading =
       queryGetVisitorByEmail.isLoading || mutationUpdateVisit.isLoading;
@@ -46,7 +50,11 @@ function getBody(
    var getVisitorByEmailSuccess = queryGetVisitorByEmail.isSuccess;
 
    if (checkingOutLoading) {
-      return <LoadingDisplay />;
+      return (
+         <div className="text-center">
+            <Spinner />
+         </div>
+      );
    }
    if (checkingOutError) {
       return (
@@ -59,7 +67,7 @@ function getBody(
    if (getVisitorByEmailSuccess) {
       let visitToUpdate = getCurrentVisit();
 
-      var visitorIsVisiting = visitToUpdate !== undefined;
+      let visitorIsVisiting = visitToUpdate !== undefined;
 
       if (!visitorIsVisiting && !mutationUpdateVisit.isSuccess) {
          return (
@@ -81,24 +89,6 @@ function getBody(
          }
       }
    }
-
-   function getCurrentVisit() {
-      return queryGetVisitorByEmail.data.visits.filter(
-         (v) => v.arrivalTime === v.departureTime
-      )[0];
-   }
-}
-
-function LoadingDisplay() {
-   return (
-      <div className="text-center">
-         <Spinner />
-      </div>
-   );
-}
-
-function AlertTemplate({ color, content }) {
-   return <Alert color={color}>{content}</Alert>;
 }
 
 function ErrorDisplay(queryGetVisitorByEmail, mutationUpdateVisit) {
@@ -106,7 +96,7 @@ function ErrorDisplay(queryGetVisitorByEmail, mutationUpdateVisit) {
    if (queryGetVisitorByEmail.isError) {
       if (queryGetVisitorByEmail.error.response?.status === 404) {
          errorToDisplay = (
-            <>{"Aucune addresse mail ne correspond à celle saisie !"}</>
+            <>{"Aucune adresse mail ne correspond à celle saisie !"}</>
          );
       } else {
          errorToDisplay = (

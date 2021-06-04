@@ -5,6 +5,7 @@ import FirstVisit from "./components/firstVisit/FirstVisit";
 import EmployeeSelection from "./components/employeeSelection/EmployeeSelection";
 import FinalScreen from "./components/finalscreen/FinalScreen";
 import CheckOut from "./components/checkout/CheckOut";
+import Return from "./components/return/Return";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
@@ -33,6 +34,9 @@ function App() {
          </Route>
          <Route path="/checkout" exact>
             <CheckOut />
+         </Route>
+         <Route path="/return" exact>
+            <Return />
          </Route>
          <Route path="*">
             <Home />

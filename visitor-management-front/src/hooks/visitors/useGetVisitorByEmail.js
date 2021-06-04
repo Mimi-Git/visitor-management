@@ -17,8 +17,15 @@ export default function useGetVisitorByEmail(email) {
       {
          enabled: false,
          retry: 2,
+         cacheTime: 0,
       }
    );
 
-   return { queryGetVisitorByEmail };
+   function getCurrentVisit() {
+      return queryGetVisitorByEmail.data.visits.filter(
+         (v) => v.arrivalTime === v.departureTime
+      )[0];
+   }
+
+   return { queryGetVisitorByEmail, getCurrentVisit };
 }

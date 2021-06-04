@@ -6,7 +6,8 @@ import ModalCheckOutFooter from "./ModalCheckOutFooter";
 
 function ModalCheckOut({ toggle, modal, emailTyped }) {
    const { mutationUpdateVisit, updateVisit } = usePutVisit();
-   const { queryGetVisitorByEmail } = useGetVisitorByEmail(emailTyped);
+   const { queryGetVisitorByEmail, getCurrentVisit } =
+      useGetVisitorByEmail(emailTyped);
 
    const visitUpdateSuccess =
       queryGetVisitorByEmail.isSuccess && mutationUpdateVisit.isSuccess;
@@ -25,6 +26,7 @@ function ModalCheckOut({ toggle, modal, emailTyped }) {
             mutationUpdateVisit={mutationUpdateVisit}
             updateVisit={updateVisit}
             toggle={toggle}
+            getCurrentVisit={getCurrentVisit}
          />
          {!(visitUpdateSuccess || visitIsLoading) && (
             <ModalCheckOutFooter

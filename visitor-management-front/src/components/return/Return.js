@@ -1,8 +1,8 @@
 import { Container, Form, Button } from "reactstrap";
+import useSearchEmail from "../../hooks/useSearchEmail";
 import GenericHeader from "../common/GenericHeader";
 import InputText from "../common/InputText";
-import ModalCheckOut from "./ModalCheckOut";
-import useSearchEmail from "../../hooks/useSearchEmail";
+import ModalReturn from "./ModalReturn";
 
 function CheckOut() {
    const {
@@ -24,17 +24,15 @@ function CheckOut() {
       <section id="checkout">
          <GenericHeader />
          <Container>
-            <h2 className="text-center m-4">
-               {"Visite terminée. Départ de l'entreprise."}
-            </h2>
+            <h2 className="text-center m-4">{"Retour dans l'entreprise."}</h2>
             <Form onSubmit={handleSubmit(onSubmit)}>
                <InputText {...emailSearchedProps} />
                <Button size="lg" type="submit" color="success" block>
-                  {"Terminer la visite"}
+                  {"Suivant"}
                </Button>
             </Form>
          </Container>
-         <ModalCheckOut toggle={toggle} modal={modal} emailTyped={emailTyped} />
+         <ModalReturn toggle={toggle} modal={modal} emailTyped={emailTyped} />
       </section>
    );
 }

@@ -30,7 +30,7 @@ function FirstOrReturnChoice() {
 function ReturnVisitNav() {
    const { setDefaultVisitor } = useVisitor();
    return (
-      <Link to="/returnvisit">
+      <Link to="/return">
          <Button
             size="lg"
             block
