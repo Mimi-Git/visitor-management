@@ -1,0 +1,23 @@
+{
+    "title":"Your details, please",
+    "firstNamePlaceholder" : "First name *",
+    "firstNameTitle" : "The First name",
+    "lastNamePlaceholder" : "Last name *",
+    "lastNameTitle" : "The Last name",
+    "phoneNumberPlaceholder" : "Phone number",
+    "phoneNumberTitle" : "The Phone number",
+    "emailPlaceholder" : "Email *",
+    "emailTitle" : "The Email",
+    "companyNamePlaceholder" : "Company name *",
+    "companyNameTitle" : "The Company name",
+    "visitorType" : {
+        "placeholder" : "Visitor type *",
+        "Title" : "The Visitor type",
+        "options" : {
+            "visitor": "Visitor",
+            "contractor": "Contractor",
+            "courier": "Courier",
+            "other": "Other"
+        }        
+    }
+}

@@ -1,8 +1,10 @@
 import { Button, ModalFooter } from "reactstrap";
 import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function ModalReturnFooter({ toggle, refetchVisitor }) {
    const history = useHistory();
+   const { t } = useTranslation("common");
 
    const onRetry = () => {
       refetchVisitor();
@@ -17,10 +19,10 @@ function ModalReturnFooter({ toggle, refetchVisitor }) {
    return (
       <ModalFooter>
          <Button color="primary" onClick={onHome}>
-            {"Accueil"}
+            {t("home")}
          </Button>{" "}
          <Button color="warning" onClick={onRetry}>
-            {"Rééssayer"}
+            {t("retry")}
          </Button>
       </ModalFooter>
    );

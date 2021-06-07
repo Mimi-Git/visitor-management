@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import { useVisitor } from "../../contexts/visitorContext";
+import { useTranslation } from "react-i18next";
 
 function VisitChoice() {
    return (
@@ -29,6 +30,7 @@ function FirstOrReturnChoice() {
 
 function ReturnVisitNav() {
    const { setDefaultVisitor } = useVisitor();
+   const { t } = useTranslation("common");
    return (
       <Link to="/return">
          <Button
@@ -41,7 +43,7 @@ function ReturnVisitNav() {
             <span>
                <FontAwesomeIcon icon={["fas", "retweet"]} className="mr-2" />
             </span>
-            <span>Déjà venu⸱e</span>
+            <span>{t("returning")}</span>
          </Button>
       </Link>
    );
@@ -49,6 +51,7 @@ function ReturnVisitNav() {
 
 function FirstVisitNav() {
    const { setDefaultVisitor } = useVisitor();
+   const { t } = useTranslation("common");
    return (
       <Link to="firstvisit">
          <Button size="lg" block color="primary" onClick={setDefaultVisitor}>
@@ -58,7 +61,7 @@ function FirstVisitNav() {
                   className="mr-2"
                />
             </span>
-            <span>Première visite</span>
+            <span>{t("firstVisit")}</span>
          </Button>
       </Link>
    );

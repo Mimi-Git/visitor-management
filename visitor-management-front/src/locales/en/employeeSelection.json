@@ -1,0 +1,22 @@
+{
+    "title" : "Person visited",
+    "modalHeader" : "Registering",
+    "placeholderSearch" : "Search",
+    "Finance" : "Finance", 
+    "Réception" : "Reception", 
+    "Informatique" : "IT department", 
+    "Direction": "General management", 
+    "QHSE":"QHSE", 
+    "Paie":"Payroll", 
+    "Services généraux":"Corporate Services", 
+    "Achats":"Purchasing", 
+    "Comptabilité":"Accounting", 
+    "Maintenance":"Maintenance",
+    "messages" : {
+        "empty" : "No employees were found",
+        "home" : "Home",
+        "retry" : "Retry",
+        "registrationError" : "Registration error !",
+        "registrationCompleted" : "Registration completed! You will be redirected..."
+    }
+}

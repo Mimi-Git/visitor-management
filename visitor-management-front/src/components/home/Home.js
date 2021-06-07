@@ -5,6 +5,7 @@ import DateTime from "../common/DateTime";
 import ModalRestore from "./ModalRestore";
 import { Languages } from "../common/Languages";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function Home() {
    return (
@@ -19,10 +20,11 @@ function Home() {
 export default Home;
 
 function HomeGreetings() {
+   const { t } = useTranslation("home");
    return (
       <Row className="greetings">
          <Col className="align-self-center text-center">
-            <h1 className="h1 pb-4">Bienvenue dans notre entreprise</h1>
+            <h1 className="h1 pb-4">{t("greet")}</h1>
             <Checkin />
          </Col>
       </Row>
@@ -30,10 +32,11 @@ function HomeGreetings() {
 }
 
 function Checkin() {
+   const { t } = useTranslation("home");
    return (
       <Link to="/visitchoice">
          <Button size="lg" color="success">
-            S'enregistrer{" "}
+            {t("checkin")}{" "}
             <span>
                <FontAwesomeIcon icon={["fas", "chevron-circle-right"]} />
             </span>
@@ -43,6 +46,7 @@ function Checkin() {
 }
 
 function HomeFooter() {
+   const { t } = useTranslation("home");
    return (
       <div className="footer">
          <div>
@@ -51,7 +55,7 @@ function HomeFooter() {
                   <span>
                      <FontAwesomeIcon icon={["fas", "door-open"]} />
                   </span>
-                  <span>Sortie</span>
+                  <span>{t("checkout")}</span>
                </Button>
             </Link>
             <Link to="/return">
@@ -59,7 +63,7 @@ function HomeFooter() {
                   <span>
                      <FontAwesomeIcon icon={["fas", "retweet"]} />
                   </span>
-                  <span>Déjà venu⸱e</span>
+                  <span>{t("returning")}</span>
                </Button>
             </Link>
          </div>

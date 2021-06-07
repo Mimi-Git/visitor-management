@@ -12,6 +12,7 @@ import {
 } from "reactstrap";
 import Employees from "./Employees";
 import GoBackButton from "../common/GoBackButton";
+import { useTranslation } from "react-i18next";
 
 function EmployeeSelection() {
    const [searchedEmployee, setSearchedEmployee] = useState("");
@@ -25,12 +26,13 @@ function EmployeeSelection() {
 }
 
 function EmployeesList({ searchedEmployee }) {
+   const { t } = useTranslation("employeeSelection");
    return (
       <Row className="mt-2 employees-row">
          <Col lg="9" className="mt-2">
             <Card style={{ color: "#212529" }}>
                <CardHeader tag="h2" className="text-center">
-                  {"Personne visitée"}
+                  {t("title")}
                </CardHeader>
                <Employees searchedEmployee={searchedEmployee} />
             </Card>
@@ -55,10 +57,11 @@ function EmployeesHeader({ setSearchedEmployee }) {
 export default EmployeeSelection;
 
 function SearchEmployee({ setSearchedEmployee }) {
+   const { t } = useTranslation("employeeSelection");
    return (
       <InputGroup>
          <Input
-            placeholder={"Rechercher"}
+            placeholder={t("placeholderSearch")}
             name={"search"}
             aria-describedby={"search-addon"}
             autoComplete="off"

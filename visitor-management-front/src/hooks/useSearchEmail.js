@@ -2,17 +2,23 @@ import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 function useSearchEmail() {
+   const { t } = useTranslation("firstVisit");
+   const { t: common } = useTranslation("common");
+   const err = common("errors", { returnObjects: true });
+
    const [emailTyped, setEmailTyped] = useState("");
+
    const [modal, setModal] = useState(false);
    const toggle = () => setModal(!modal);
 
    const schema = yup.object().shape({
       emailSearched: yup
-         .string(`L'email doit être une chaine de charactères`)
-         .required(`L'email est obligatoire`)
-         .email(`L'email est invalide`),
+         .string(`${t("emailTitle")} ${err.string}`)
+         .required(`${t("emailTitle")} ${err.required}`)
+         .email(`${t("emailTitle")} ${err.invalid}`),
    });
    const {
       register,
@@ -26,7 +32,7 @@ function useSearchEmail() {
       fieldName: "emailSearched",
       icon: ["fas", "search"],
       reg: register("emailSearched"),
-      placeholder: "Email *",
+      placeholder: t("emailPlaceholder"),
       error: errors.emailSearched,
       size: "lg",
    };

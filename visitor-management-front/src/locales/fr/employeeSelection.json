@@ -1,0 +1,22 @@
+{
+    "title" : "Personne visitée",
+    "modalHeader" : "Enregistement",
+    "placeholderSearch" : "Rechercher",
+    "Finance" : "Finance", 
+    "Réception" : "Réception", 
+    "Informatique" : "Informatique", 
+    "Direction": "Direction", 
+    "QHSE":"QHSE", 
+    "Paie":"Paie", 
+    "Services généraux":"Services généraux", 
+    "Achats":"Achats", 
+    "Comptabilité":"Comptabilité", 
+    "Maintenance":"Maintenance",
+    "messages" : {
+        "empty" : "Aucun employée n'a été trouvé",
+        "home" : "Accueil",
+        "retry" : "Réessayer",
+        "registrationError" : "Erreur lors de l'enregistrement !",
+        "registrationCompleted" : "Enregistrement términé! Vous allez être redirigé..."
+    }
+}

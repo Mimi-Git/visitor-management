@@ -3,11 +3,13 @@ import usePutVisit from "../../hooks/visits/usePutVisit";
 import useGetVisitorByEmail from "../../hooks/visitors/useGetVisitorByEmail";
 import ModalCheckOutBody from "./ModalCheckOutBody";
 import ModalCheckOutFooter from "./ModalCheckOutFooter";
+import { useTranslation } from "react-i18next";
 
 function ModalCheckOut({ toggle, modal, emailTyped }) {
    const { mutationUpdateVisit, updateVisit } = usePutVisit();
    const { queryGetVisitorByEmail, getCurrentVisit } =
       useGetVisitorByEmail(emailTyped);
+   const { t } = useTranslation("checkOut");
 
    const visitUpdateSuccess =
       queryGetVisitorByEmail.isSuccess && mutationUpdateVisit.isSuccess;
@@ -20,7 +22,7 @@ function ModalCheckOut({ toggle, modal, emailTyped }) {
 
    return (
       <Modal isOpen={modal}>
-         <ModalHeader>{"Traitement des informations"}</ModalHeader>
+         <ModalHeader>{t("informationProcessing")}</ModalHeader>
          <ModalCheckOutBody
             queryGetVisitorByEmail={queryGetVisitorByEmail}
             mutationUpdateVisit={mutationUpdateVisit}

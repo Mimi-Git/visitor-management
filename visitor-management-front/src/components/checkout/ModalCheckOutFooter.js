@@ -1,5 +1,6 @@
 import { Button, ModalFooter } from "reactstrap";
 import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function ModalCheckOutFooter({
    toggle,
@@ -7,6 +8,7 @@ function ModalCheckOutFooter({
    refetchVisitorByEmail,
 }) {
    const history = useHistory();
+   const { t } = useTranslation("common");
 
    const onRetry = () => {
       refetchVisitorByEmail();
@@ -22,10 +24,10 @@ function ModalCheckOutFooter({
    return (
       <ModalFooter>
          <Button color="primary" onClick={onHome}>
-            {"Accueil"}
+            {t("home")}
          </Button>{" "}
          <Button color="warning" onClick={onRetry}>
-            {"Rééssayer"}
+            {t("retry")}
          </Button>
       </ModalFooter>
    );

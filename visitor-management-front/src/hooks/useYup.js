@@ -3,40 +3,52 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useVisitor } from "../contexts/visitorContext";
 import useGetVisitors from "./visitors/useGetVisitors";
+import { useTranslation } from "react-i18next";
 
 function useYup() {
    const { visitor } = useVisitor();
    const { queryGetVisitors, getVisitorByEmail } = useGetVisitors();
+   const { t: common } = useTranslation("common");
+   const { t } = useTranslation("firstVisit");
+
+   const err = common("errors", { returnObjects: true });
+   const firstNameTitle = t("firstNameTitle");
+   const lastNameTitle = t("lastNameTitle");
+   const phoneNumberTitle = t("phoneNumberTitle");
+   const emailTitle = t("emailTitle");
+   const companyNameTitle = t("companyNameTitle");
+   const visitorTypeObj = t("visitorType", { returnObjects: true });
+   const visitorTypeTitle = visitorTypeObj.Title;
 
    const phoneRegExp =
       /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/;
 
    const schema = yup.object().shape({
       firstName: yup
-         .string(`Le prénom doit être un chaine de charactères`)
-         .required(`Le prénom est obligatoire`)
-         .min(2, `Le prénom doit contenir au moins 2 charactères`)
+         .string(`${firstNameTitle} ${err.string}`)
+         .required(`${firstNameTitle} ${err.required}`)
+         .min(2, `${firstNameTitle} ${err.min.replace("{value}", "2")}`)
          .default(visitor.firstName),
       lastName: yup
-         .string(`Le nom de famille doit être un chaine de charactères`)
-         .required(`Le nom de famille est obligatoire`)
-         .min(2, `Le nom de famille doit contenir au moins 2 charactères`)
+         .string(`${lastNameTitle} ${err.string}`)
+         .required(`${lastNameTitle} ${err.required}`)
+         .min(2, `${lastNameTitle} ${err.min.replace("{value}", "2")}`)
          .default(visitor.lastName),
       phoneNumber: yup.lazy((value) =>
          !value
             ? yup.string().default(visitor.phoneNumber).nullable()
             : yup
                  .string()
-                 .matches(phoneRegExp, "Le numéro est invalide")
+                 .matches(phoneRegExp, `${phoneNumberTitle} ${err.invalid}`)
                  .default(visitor.phoneNumber)
       ),
       email: yup
-         .string(`L'email doit être une chaine de charactères`)
-         .required(`L'email est obligatoire`)
-         .email(`L'email est invalide`)
+         .string(`${emailTitle} ${err.string}`)
+         .required(`${emailTitle} ${err.required}`)
+         .email(`${emailTitle} ${err.invalid}`)
          .test(
             "email-exist",
-            "Email déjà utilisé. Veuillez en saisir un autre ou revenir sur la page précédente et selectionner 'Déjà venu⸱e'",
+            `${emailTitle} ${err.emailUsed}`,
             function (email) {
                if (queryGetVisitors.isSuccess) {
                   const visitorExist = getVisitorByEmail(email).length !== 0;
@@ -47,16 +59,16 @@ function useYup() {
          )
          .default(visitor.email),
       companyName: yup
-         .string(`L'entreprise doit être un chaine de charactères`)
-         .required(`L'entreprise est obligatoire`)
-         .min(2, `L'entreprise doit contenir au moins 2 charactères`)
+         .string(`${companyNameTitle} ${err.string}`)
+         .required(`${companyNameTitle} ${err.required}`)
+         .min(2, `${companyNameTitle} ${err.min.replace("{value}", "2")}`)
          .default(visitor.companyName),
       visitorType: yup
-         .string(`Choix invalide`)
-         .required(`Le type de visiteur est obligatoire`)
+         .string(`${visitorTypeTitle} ${err.invalid}`)
+         .required(`${visitorTypeTitle} ${err.required}`)
          .matches(
             /visitor|contractor|courier|other/,
-            "Le type de visiteur est obligatoire"
+            `${visitorTypeTitle} ${err.required}`
          )
          .default(visitor.visitorType),
    });

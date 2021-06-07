@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { ModalBody, Spinner } from "reactstrap";
 import { useHistory, Link } from "react-router-dom";
 import AlertTemplate from "../common/AlertTemplate";
+import { useTranslation } from "react-i18next";
 
 function ModalReturnBody({ getVisitor, getCurrentVisit, toggle }) {
    const history = useHistory();
@@ -18,12 +19,15 @@ function ModalReturnBody({ getVisitor, getCurrentVisit, toggle }) {
       }
    }, [shouldRedirect, toggle, history]);
 
-   return <ModalBody>{getBody(getVisitor, getCurrentVisit)}</ModalBody>;
+   return <ModalBody>{GetBody(getVisitor, getCurrentVisit)}</ModalBody>;
 }
 
 export default ModalReturnBody;
 
-function getBody(getVisitor, getCurrentVisit) {
+function GetBody(getVisitor, getCurrentVisit) {
+   const { t } = useTranslation("common");
+   const messages = t("errors", { returnObjects: true });
+
    if (getVisitor.isLoading) {
       return (
          <div className="text-center">
@@ -34,13 +38,11 @@ function getBody(getVisitor, getCurrentVisit) {
    if (getVisitor.isError) {
       let errorToDisplay = <></>;
       if (getVisitor.error.response?.status === 404) {
-         errorToDisplay = (
-            <>{"Aucune adresse mail ne correspond à celle saisie !"}</>
-         );
+         errorToDisplay = <>{messages.unidentifiedEmail}</>;
       } else {
          errorToDisplay = (
             <>
-               {"Erreur de récupération des données !"}
+               {messages.retrivalError}
                <br />
                {getVisitor.error.toString()}
             </>
@@ -59,9 +61,9 @@ function getBody(getVisitor, getCurrentVisit) {
                color="danger"
                content={
                   <>
-                     {"Une visite est en cours. Veuillez effectuer la "}
+                     {messages.visitInProgress}
                      <Link to="/checkout">
-                        <b>{"sortie ici"}</b>
+                        <b>{messages.exitHere}</b>
                      </Link>
                   </>
                }

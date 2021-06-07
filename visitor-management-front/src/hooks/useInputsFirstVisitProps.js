@@ -1,13 +1,15 @@
 import { useVisitor } from "../contexts/visitorContext";
+import { useTranslation } from "react-i18next";
 
 function useInputsFirstVisitProps(register, errors) {
    const { visitor } = useVisitor();
+   const { t } = useTranslation("firstVisit");
 
    const firstNameProps = {
       fieldName: "firstName",
       icon: ["fas", "id-card-alt"],
       reg: register("firstName"),
-      placeholder: "Prénom *",
+      placeholder: t("firstNamePlaceholder"),
       error: errors.firstName,
       size: "lg",
       defaultvalue: visitor.firstName,
@@ -17,7 +19,7 @@ function useInputsFirstVisitProps(register, errors) {
       fieldName: "lastName",
       icon: ["fas", "address-book"],
       reg: register("lastName"),
-      placeholder: "Nom de famille *",
+      placeholder: t("lastNamePlaceholder"),
       error: errors.lastName,
       size: "lg",
       defaultvalue: visitor.lastName,
@@ -27,7 +29,7 @@ function useInputsFirstVisitProps(register, errors) {
       fieldName: "phoneNumber",
       icon: ["fas", "phone-square-alt"],
       reg: register("phoneNumber"),
-      placeholder: "Numéro de téléphone",
+      placeholder: t("phoneNumberPlaceholder"),
       error: errors.phoneNumber,
       size: "lg",
       defaultvalue: visitor.phoneNumber,
@@ -37,7 +39,7 @@ function useInputsFirstVisitProps(register, errors) {
       fieldName: "email",
       icon: ["fas", "envelope"],
       reg: register("email"),
-      placeholder: "Email *",
+      placeholder: t("emailPlaceholder"),
       error: errors.email,
       size: "lg",
       defaultvalue: visitor.email,
@@ -47,25 +49,22 @@ function useInputsFirstVisitProps(register, errors) {
       fieldName: "companyName",
       icon: ["fas", "building"],
       reg: register("companyName"),
-      placeholder: "Nom de l'entreprise *",
+      placeholder: t("companyNamePlaceholder"),
       error: errors.companyName,
       size: "lg",
       defaultvalue: visitor.companyName,
    };
 
+   const visitorTypeLanguage = t("visitorType", { returnObjects: true });
+
    const visitorTypeProps = {
       fieldName: "visitorType",
       icon: ["fas", "building"],
       reg: register("visitorType"),
-      placeholder: "Type de visiteur *",
+      placeholder: visitorTypeLanguage.placeholder,
       error: errors.visitorType,
       size: "lg",
-      options: {
-         visitor: "Visiteur",
-         contractor: "Prestataire",
-         courier: "Coursier",
-         other: "Autre",
-      },
+      options: visitorTypeLanguage.options,
       defaultvalue: visitor.visitorType,
    };
 

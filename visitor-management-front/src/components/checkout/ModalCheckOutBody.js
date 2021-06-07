@@ -1,6 +1,7 @@
 import { ModalBody, Spinner } from "reactstrap";
 import { useHistory } from "react-router-dom";
 import AlertTemplate from "../common/AlertTemplate";
+import { useTranslation } from "react-i18next";
 
 function ModalCheckOutBody({
    queryGetVisitorByEmail,
@@ -13,7 +14,7 @@ function ModalCheckOutBody({
 
    return (
       <ModalBody>
-         {getBody(
+         {GetBody(
             queryGetVisitorByEmail,
             mutationUpdateVisit,
             updateVisit,
@@ -36,13 +37,16 @@ function ModalCheckOutBody({
 
 export default ModalCheckOutBody;
 
-function getBody(
+function GetBody(
    queryGetVisitorByEmail,
    mutationUpdateVisit,
    updateVisit,
    redirectToFinalScreen,
    getCurrentVisit
 ) {
+   const { t } = useTranslation("common");
+   const messages = t("errors", { returnObjects: true });
+
    var checkingOutLoading =
       queryGetVisitorByEmail.isLoading || mutationUpdateVisit.isLoading;
    var checkingOutError =
@@ -60,7 +64,11 @@ function getBody(
       return (
          <AlertTemplate
             color={"danger"}
-            content={ErrorDisplay(queryGetVisitorByEmail, mutationUpdateVisit)}
+            content={ErrorDisplay(
+               queryGetVisitorByEmail,
+               mutationUpdateVisit,
+               messages
+            )}
          />
       );
    }
@@ -70,9 +78,7 @@ function getBody(
       let visitorIsVisiting = visitToUpdate !== undefined;
 
       if (!visitorIsVisiting && !mutationUpdateVisit.isSuccess) {
-         return (
-            <AlertTemplate color="danger" content={"Aucune visite en cours"} />
-         );
+         return <AlertTemplate color="danger" content={messages.noVisit} />;
       } else {
          if (!mutationUpdateVisit.isSuccess) {
             visitToUpdate.departureTime = new Date().toJSON();
@@ -83,7 +89,7 @@ function getBody(
             return (
                <AlertTemplate
                   color="success"
-                  content={"Données enregistrées, vous allez être redirigé..."}
+                  content={messages.dataSavedRedirect}
                />
             );
          }
@@ -91,17 +97,15 @@ function getBody(
    }
 }
 
-function ErrorDisplay(queryGetVisitorByEmail, mutationUpdateVisit) {
+function ErrorDisplay(queryGetVisitorByEmail, mutationUpdateVisit, messages) {
    var errorToDisplay = <></>;
    if (queryGetVisitorByEmail.isError) {
       if (queryGetVisitorByEmail.error.response?.status === 404) {
-         errorToDisplay = (
-            <>{"Aucune adresse mail ne correspond à celle saisie !"}</>
-         );
+         errorToDisplay = <>{messages.unidentifiedEmail}</>;
       } else {
          errorToDisplay = (
             <>
-               {"Erreur de récupération des données !"}
+               {messages.retrivalError}
                <br />
                {queryGetVisitorByEmail.error.toString()}
             </>
@@ -111,7 +115,7 @@ function ErrorDisplay(queryGetVisitorByEmail, mutationUpdateVisit) {
    if (mutationUpdateVisit.isError) {
       errorToDisplay = (
          <>
-            {"Erreur de mise à jour des données !"}
+            {messages.updateError}
             <br />
             {mutationUpdateVisit.error.toString()}
          </>

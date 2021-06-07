@@ -1,77 +1,20 @@
 import Employee from "./Employee";
-import React, { useState } from "react";
+import React from "react";
 import { Row, CardBody, Spinner } from "reactstrap";
-import { useHistory } from "react-router-dom";
-import { useEmployee } from "../../contexts/employeeContext";
-import { useVisitor } from "../../contexts/visitorContext";
-import useGetEmployees from "../../hooks/employees/useGetEmployees";
-import useCreateVisitor from "../../hooks/visitors/useCreateVisitor";
-import useCreateVisit from "../../hooks/visits/useCreateVisit";
-import useGetVisits from "../../hooks/visits/useGetVisits";
 import ModalCreationState from "./ModalCreationState";
+import useEmployeeSelection from "../../hooks/useEmployeeSelection";
 
 function Employees({ searchedEmployee }) {
-   const history = useHistory();
-
-   const { setEmployee } = useEmployee();
-   const { visitor, setVisitor } = useVisitor();
-
-   const { queryGetEmployee, getEmployeesByNames } = useGetEmployees();
-   const { mutationCreateVisitor } = useCreateVisitor();
-   const { mutationCreateVisit, createVisit } = useCreateVisit();
-   const { getCurrentVisitByVisitor } = useGetVisits();
-
-   const [modal, setModal] = useState(false);
-   const toggle = () => setModal(!modal);
-
-   function handleClick(employeeSelected) {
-      setEmployee(employeeSelected);
-      setModal(true);
-
-      if (visitorExists(visitor)) {
-         addVisit(visitor, employeeSelected);
-      } else {
-         const newVisitor = visitor;
-         if (newVisitor.phoneNumber === "") newVisitor.phoneNumber = null;
-
-         mutationCreateVisitor.mutateAsync(newVisitor, {
-            onSuccess: (data) => {
-               setVisitor(data);
-               addVisit(data, employeeSelected);
-            },
-         });
-      }
-   }
-
-   const addVisit = (visitor, employee) => {
-      if (visitorVisiting(visitor)) {
-         setTimeout(() => history.push("/checkout"), 3000);
-      } else {
-         const dateNow = new Date().toJSON();
-
-         const newVisit = {
-            arrivalTime: dateNow,
-            departureTime: dateNow,
-            visitorId: visitor.id,
-            employeeId: employee.id,
-         };
-         createVisit(newVisit).then(() =>
-            setTimeout(() => {
-               setModal(false);
-               history.push("/finalscreen", {
-                  display: "checked-in",
-                  visitor,
-                  employee,
-               });
-            }, 3000)
-         );
-      }
-   };
-
-   const visitorExists = (visitor) => "id" in visitor;
-
-   const visitorVisiting = (visitor) =>
-      getCurrentVisitByVisitor(visitor).length !== 0;
+   const {
+      queryGetEmployee,
+      employeesFiltered,
+      messages,
+      handleClick,
+      mutationCreateVisitor,
+      mutationCreateVisit,
+      toggle,
+      modal,
+   } = useEmployeeSelection(searchedEmployee);
 
    if (queryGetEmployee.isError) {
       return (
@@ -89,15 +32,10 @@ function Employees({ searchedEmployee }) {
       );
    }
 
-   const employeesFiltered =
-      queryGetEmployee.isLoading || queryGetEmployee.isError
-         ? []
-         : getEmployeesByNames(searchedEmployee);
-
    if (queryGetEmployee.isSuccess && employeesFiltered.length === 0) {
       return (
          <CardBody className="scroll text-center text-danger">
-            <b>{"Aucun employée n'a été trouvé"}</b>
+            <b>{messages.empty}</b>
          </CardBody>
       );
    }

@@ -1,7 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Col } from "reactstrap";
+import { useTranslation } from "react-i18next";
 
 function Employee({ employee, handleClick }) {
+   const { t } = useTranslation("employeeSelection");
    return (
       <Col sm="12" md="6" xl="4">
          <button
@@ -12,7 +14,7 @@ function Employee({ employee, handleClick }) {
             <EmployeeInfo
                firstName={employee.firstName}
                lastName={employee.lastName}
-               department={employee.department}
+               department={t(employee.department)}
             />
             <div>
                <FontAwesomeIcon icon={["fas", "chevron-right"]} />

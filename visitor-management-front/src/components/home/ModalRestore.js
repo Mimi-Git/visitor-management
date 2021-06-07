@@ -9,9 +9,11 @@ import {
    Spinner,
 } from "reactstrap";
 import useRestoreData from "../../hooks/useRestoreData";
+import { useTranslation } from "react-i18next";
 
 function ModalRestore() {
    const { modal, toggle, onRestore, mutation } = useRestoreData();
+   const { t } = useTranslation("home");
 
    return (
       <>
@@ -19,14 +21,8 @@ function ModalRestore() {
             <FontAwesomeIcon icon={["fas", "minus-circle"]} />
          </Button>
          <Modal isOpen={modal} toggle={toggle}>
-            <ModalHeader toggle={toggle}>
-               {"Etes-vous sûr⸱e ? (Démo uniquement)"}
-            </ModalHeader>
-            <ModalBody>
-               {
-                  "Voulez-vous vraiment restaurer les données de l'application ? Cela aura pour conséquense de supprimer tous les visiteurs, visites et de reinitialiser les employés par défaut."
-               }
-            </ModalBody>
+            <ModalHeader toggle={toggle}>{t("restoreTitle")}</ModalHeader>
+            <ModalBody>{t("restoreBody")}</ModalBody>
             <ModalFooter>
                <Button
                   color={mutation.isSuccess ? "success" : "danger"}
@@ -36,11 +32,11 @@ function ModalRestore() {
                   {mutation.isLoading ? (
                      <Spinner size="sm" />
                   ) : mutation.isError ? (
-                     "Erreur !"
+                     t("error")
                   ) : mutation.isSuccess ? (
-                     "Restauré !"
+                     t("restored")
                   ) : (
-                     "Restaurer"
+                     t("restore")
                   )}
                </Button>{" "}
                <Button
@@ -49,8 +45,8 @@ function ModalRestore() {
                   onClick={toggle}
                >
                   {mutation.isError || mutation.isSuccess
-                     ? "Fermer"
-                     : "Annuler"}
+                     ? t("close")
+                     : t("cancel")}
                </Button>
             </ModalFooter>
          </Modal>

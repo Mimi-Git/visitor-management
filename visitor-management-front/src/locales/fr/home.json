@@ -1,0 +1,13 @@
+{
+    "greet" : "Bienvenue dans notre entreprise",
+    "checkin" : "S'enregistrer",
+    "checkout" : "Sortie",
+    "returning" : "Déjà venu⸱e",
+    "restoreTitle": "Etes-vous sûr⸱e ? (Démo uniquement)",
+    "restoreBody":"Voulez-vous vraiment restaurer les données de l'application ? Cela aura pour conséquense de supprimer tous les visiteurs, visites et de reinitialiser les employés par défaut.",
+    "error":"Erreur !",
+    "restored":"Restauré !",
+    "restore":"Restaurer",
+    "close": "Fermer",
+    "cancel": "Annuler"
+}

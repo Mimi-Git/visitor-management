@@ -1,0 +1,21 @@
+{
+    "firstVisit" : "First time user here",
+    "returning" : "Returning user here",
+    "next" : "Next",
+    "home" : "Home",
+    "retry" : "Retry",
+    "errors" : {
+        "string" : "must be a string",
+        "required" : "is required",
+        "min" : "must contain at least {value} characters",
+        "invalid" : "is invalid",
+        "emailUsed" : "already used. Please either enter another one or go back to the previous page and select 'Returning'",
+        "noVisit" : "No visits in progress",
+        "dataSavedRedirect" : "Data saved, you will be redirected...",
+        "unidentifiedEmail" : "No email address matches the one you entered !",
+        "retrivalError" : "Data retrieval error !",
+        "updateError" : "Data update error !",
+        "visitInProgress" : "A visit is in progress. Please ",
+        "exitHere" : "check-out here"
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "firstVisit" : "Première visite ici",
+    "returning" : "Déjà venu⸱e ici",
+    "next" : "Suivant",
+    "home" : "Accueil",
+    "retry" : "Réessayer",
+    "errors" : {
+        "string" : "doit être un chaine de charactères",
+        "required" : "est obligatoire",
+        "min" : "doit contenir au moins {value} charactères",
+        "invalid" : "est invalide",
+        "emailUsed" : "déjà utilisé. Veuillez en saisir un autre ou revenir sur la page précédente et selectionner 'Déjà venu⸱e'",
+        "noVisit" : "Aucune visite en cours",
+        "dataSavedRedirect" : "Données enregistrées, vous allez être redirigé...",
+        "unidentifiedEmail" : "Aucune adresse mail ne correspond à celle saisie !",
+        "retrivalError" : "Erreur de récupération des données !",
+        "updateError" : "Erreur de mise à jour des données !",
+        "visitInProgress" : "Une visite est en cours. Veuillez effectuer la ",
+        "exitHere" : "sortie ici"
+    }
+}

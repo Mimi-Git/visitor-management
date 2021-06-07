@@ -1,0 +1,13 @@
+{
+    "greet" : "Welcome to our company",
+    "checkin" : "Check-in",
+    "checkout" : "Check-out",
+    "returning" : "Returning",
+    "restoreTitle": "Are you sure? (Demo only)",
+    "restoreBody":"Do you really want to restore the application data? This will result in deleting all visitors, visits and restoring the default employees.",
+    "error":"Error !",
+    "restored":"Restored !",
+    "restore":"Restore",
+    "close": "Close",
+    "cancel": "Cancel"
+}

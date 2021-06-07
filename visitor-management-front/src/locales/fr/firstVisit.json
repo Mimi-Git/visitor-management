@@ -1,0 +1,23 @@
+{
+    "title":"Vos coordonées, SVP",
+    "firstNamePlaceholder" : "Prénom *",
+    "firstNameTitle" : "Le Prénom",
+    "lastNamePlaceholder" : "Nom de famille *",
+    "lastNameTitle" : "Le Nom de famille",
+    "phoneNumberPlaceholder" : "Numéro de téléphone",
+    "phoneNumberTitle" : "Le Numéro de téléphone",
+    "emailPlaceholder" : "Email *",
+    "emailTitle" : "L'Email",
+    "companyNamePlaceholder" : "Nom de l'entreprise *",
+    "companyNameTitle" : "Le Nom de l'entreprise",
+    "visitorType" : {
+        "placeholder" : "Type de visiteur *",
+        "Title" : "Le Type de visiteur",
+        "options" : {
+            "visitor": "Visiteur",
+            "contractor": "Prestataire",
+            "courier": "Coursier",
+            "other": "Autre"
+        }        
+    }
+}
