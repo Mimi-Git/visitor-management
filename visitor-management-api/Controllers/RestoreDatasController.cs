@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using visitor_management_api.Data;
 
 namespace visitor_management_api.Controllers
@@ -7,11 +8,11 @@ namespace visitor_management_api.Controllers
     [ApiController]
     public class RestoreDatasController : ControllerBase
     {
-        private readonly IEmployeeRepo _employeeRepo;
-        private readonly IVisitorRepo _visitorRepo;
-        private readonly IVisitRepo _visitRepo;
+        private readonly IEmployeeRepositoryAsync _employeeRepo;
+        private readonly IVisitorRepositoryAsync _visitorRepo;
+        private readonly IVisitRepositoryAsync _visitRepo;
 
-        public RestoreDatasController(IEmployeeRepo employeeRepo, IVisitorRepo visitorRepo, IVisitRepo visitRepo)
+        public RestoreDatasController(IEmployeeRepositoryAsync employeeRepo, IVisitorRepositoryAsync visitorRepo, IVisitRepositoryAsync visitRepo)
         {
             _employeeRepo = employeeRepo;
             _visitorRepo = visitorRepo;
@@ -19,15 +20,11 @@ namespace visitor_management_api.Controllers
         }
 
         [HttpDelete]
-        public ActionResult ResetAllData()
+        public async Task<ActionResult> ResetAllData()
         {
-            _employeeRepo.RestoreEmployees();
-            _visitorRepo.RestoreVisitors();
-            _visitRepo.RestoreVisits();
-
-            _employeeRepo.SaveChanges();
-            _visitorRepo.SaveChanges();
-            _visitRepo.SaveChanges();
+            await _employeeRepo.RestoreAsync();
+            await _visitorRepo.RestoreAsync();
+            await _visitRepo.RestoreAsync();
 
             return NoContent();
         }

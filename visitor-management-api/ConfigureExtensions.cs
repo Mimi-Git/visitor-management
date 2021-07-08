@@ -16,9 +16,11 @@ namespace visitor_management_api
     {
         public static void RegistrationConfiguration(this IServiceCollection services)
         {
-            services.AddScoped<IVisitorRepo, SqlVisitorRepo>()
-                    .AddScoped<IEmployeeRepo, SqlEmployeeRepo>()
-                    .AddScoped<IVisitRepo, SqlVisitRepo>();
+            services.AddScoped<IVisitorRepositoryAsync, EfVisitorRepositoryAsync>()
+                    .AddScoped<IEmployeeRepositoryAsync, EfEmployeeRepositoryAsync>()
+                    .AddScoped<IVisitRepositoryAsync, EfVisitRepositoryAsync>();
+
+            services.AddScoped(typeof(IRepositoryAsync<>), typeof(EfBaseRepositoryAsync<>));
         }
 
         public static void AutoMapperConfiguration(this IServiceCollection services)
@@ -57,7 +59,7 @@ namespace visitor_management_api
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Visitor Management API", Version = "v1" });
             });
         }
 

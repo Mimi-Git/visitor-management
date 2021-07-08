@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using visitor_management_api.Data;
 using visitor_management_api.Dtos;
 using visitor_management_api.Models;
@@ -12,19 +13,19 @@ namespace visitor_management_api.Controllers
     [ApiController]
     public class VisitsController : ControllerBase
     {
-        private readonly IVisitRepo _repository;
+        private readonly IVisitRepositoryAsync _repository;
         private readonly IMapper _mapper;
 
-        public VisitsController(IVisitRepo repository, IMapper mapper)
+        public VisitsController(IVisitRepositoryAsync repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<VisitReadDto>> GetAllVisits()
+        public async Task<ActionResult<IEnumerable<VisitReadDto>>> GetAllVisits()
         {
-            var visitItems = _repository.GetAllVisits();
+            var visitItems = await _repository.GetAllAsync();
 
             if (visitItems != null)
             {
@@ -37,9 +38,9 @@ namespace visitor_management_api.Controllers
         }
 
         [HttpGet("{id}", Name = "GetVisitById")]
-        public ActionResult<VisitReadDto> GetVisitById(int id)
+        public async Task<ActionResult<VisitReadDto>> GetVisitById(int id)
         {
-            var visitItem = _repository.GetVisitById(id);
+            var visitItem = await _repository.GetByIdAsync(id);
 
             if (visitItem != null)
             {
@@ -52,11 +53,10 @@ namespace visitor_management_api.Controllers
         }
 
         [HttpPost]
-        public ActionResult<VisitReadDto> CreateVisit(VisitCreateDto visitCreateDto)
+        public async Task<ActionResult<VisitReadDto>> CreateVisit(VisitCreateDto visitCreateDto)
         {
             var visitModel = _mapper.Map<Visit>(visitCreateDto);
-            _repository.CreateVisit(visitModel);
-            _repository.SaveChanges();
+            await _repository.CreateAsync(visitModel);
 
             var visitReadDto = _mapper.Map<VisitReadDto>(visitModel);
 
@@ -64,9 +64,9 @@ namespace visitor_management_api.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateVisit(int id, VisitUpdateDto visitUpdateDto)
+        public async Task<ActionResult> UpdateVisit(int id, VisitUpdateDto visitUpdateDto)
         {
-            var visitModelFromRepo = _repository.GetVisitById(id);
+            var visitModelFromRepo = await _repository.GetByIdAsync(id);
             if (visitModelFromRepo == null)
             {
                 return NotFound();
@@ -74,17 +74,15 @@ namespace visitor_management_api.Controllers
 
             _mapper.Map(visitUpdateDto, visitModelFromRepo);
 
-            _repository.UpdateVisit(visitModelFromRepo);
-
-            _repository.SaveChanges();
+            await _repository.UpdateAsync(visitModelFromRepo);
 
             return NoContent();
         }
 
         [HttpPatch("{id}")]
-        public ActionResult PartialVisitUpdate(int id, JsonPatchDocument<VisitUpdateDto> patchDocument)
+        public async Task<ActionResult> PartialVisitUpdate(int id, JsonPatchDocument<VisitUpdateDto> patchDocument)
         {
-            var visitModelFromRepo = _repository.GetVisitById(id);
+            var visitModelFromRepo = await _repository.GetByIdAsync(id);
             if (visitModelFromRepo == null)
             {
                 return NotFound();
@@ -101,24 +99,21 @@ namespace visitor_management_api.Controllers
 
             _mapper.Map(visitToPatch, visitModelFromRepo);
 
-            _repository.UpdateVisit(visitModelFromRepo);
-
-            _repository.SaveChanges();
+            await _repository.UpdateAsync(visitModelFromRepo);
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public ActionResult DeleteVisit(int id)
+        public async Task<ActionResult> DeleteVisit(int id)
         {
-            var visitModelFromRepo = _repository.GetVisitById(id);
+            var visitModelFromRepo = await _repository.GetByIdAsync(id);
             if (visitModelFromRepo == null)
             {
                 return NotFound();
             }
 
-            _repository.DeleteVisit(visitModelFromRepo);
-            _repository.SaveChanges();
+            await _repository.DeleteAsync(visitModelFromRepo);
 
             return NoContent();
         }

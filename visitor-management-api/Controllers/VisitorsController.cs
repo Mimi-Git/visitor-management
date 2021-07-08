@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using visitor_management_api.Data;
 using visitor_management_api.Dtos;
 using visitor_management_api.Models;
@@ -12,19 +13,19 @@ namespace visitor_management_api.Controllers
     [ApiController]
     public class VisitorsController : ControllerBase
     {
-        private readonly IVisitorRepo _repository;
+        private readonly IVisitorRepositoryAsync _repository;
         private readonly IMapper _mapper;
 
-        public VisitorsController(IVisitorRepo repository, IMapper mapper)
+        public VisitorsController(IVisitorRepositoryAsync repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<VisitorReadDto>> GetAllVisitors()
+        public async Task<ActionResult<IEnumerable<VisitorReadDto>>> GetAllVisitors()
         {
-            var visitorItems = _repository.GetAllVisitors();
+            var visitorItems = await _repository.GetAllAsync();
 
             if (visitorItems != null)
             {
@@ -37,9 +38,9 @@ namespace visitor_management_api.Controllers
         }
 
         [HttpGet("{id}", Name = "GetVisitorById")]
-        public ActionResult<VisitorReadDto> GetVisitorById(int id)
+        public async Task<ActionResult<VisitorReadDto>> GetVisitorById(int id)
         {
-            var visitorItem = _repository.GetVisitorById(id);
+            var visitorItem = await _repository.GetByIdAsync(id);
 
             if (visitorItem != null)
             {
@@ -52,9 +53,9 @@ namespace visitor_management_api.Controllers
         }
 
         [HttpGet("getbyemail/{email}", Name = "GetVisitorByEmail")]
-        public ActionResult<VisitorReadDtoWithVisits> GetVisitorByEmail(string email)
+        public async Task<ActionResult<VisitorReadDtoWithVisits>> GetVisitorByEmail(string email)
         {
-            var visitorItem = _repository.GetVisitorByEmail(email);
+            var visitorItem = await _repository.GetVisitorByEmailAsync(email);
 
             if (visitorItem != null)
             {
@@ -67,11 +68,10 @@ namespace visitor_management_api.Controllers
         }
 
         [HttpPost]
-        public ActionResult<VisitorReadDto> CreateVisitor(VisitorCreateDto visitorCreateDto)
+        public async Task<ActionResult<VisitorReadDto>> CreateVisitor(VisitorCreateDto visitorCreateDto)
         {
             var visitorModel = _mapper.Map<Visitor>(visitorCreateDto);
-            _repository.CreateVisitor(visitorModel);
-            _repository.SaveChanges();
+            await _repository.CreateAsync(visitorModel);
 
             var visitorReadDto = _mapper.Map<VisitorReadDto>(visitorModel);
 
@@ -79,9 +79,9 @@ namespace visitor_management_api.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateVisitor(int id, VisitorUpdateDto visitorUpdateDto)
+        public async Task<ActionResult> UpdateVisitor(int id, VisitorUpdateDto visitorUpdateDto)
         {
-            var visitorModelFromRepo = _repository.GetVisitorById(id);
+            var visitorModelFromRepo = await _repository.GetByIdAsync(id);
             if (visitorModelFromRepo == null)
             {
                 return NotFound();
@@ -89,17 +89,15 @@ namespace visitor_management_api.Controllers
 
             _mapper.Map(visitorUpdateDto, visitorModelFromRepo);
 
-            _repository.UpdateVisitor(visitorModelFromRepo);
-
-            _repository.SaveChanges();
+            await _repository.UpdateAsync(visitorModelFromRepo);
 
             return NoContent();
         }
 
         [HttpPatch("{id}")]
-        public ActionResult PartialVisitorUpdate(int id, JsonPatchDocument<VisitorUpdateDto> patchDocument)
+        public async Task<ActionResult> PartialVisitorUpdate(int id, JsonPatchDocument<VisitorUpdateDto> patchDocument)
         {
-            var visitorModelFromRepo = _repository.GetVisitorById(id);
+            var visitorModelFromRepo = await _repository.GetByIdAsync(id);
             if (visitorModelFromRepo == null)
             {
                 return NotFound();
@@ -116,24 +114,21 @@ namespace visitor_management_api.Controllers
 
             _mapper.Map(visitorToPatch, visitorModelFromRepo);
 
-            _repository.UpdateVisitor(visitorModelFromRepo);
-
-            _repository.SaveChanges();
+            await _repository.UpdateAsync(visitorModelFromRepo);
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public ActionResult DeleteVisitor(int id)
+        public async Task<ActionResult> DeleteVisitor(int id)
         {
-            var visitorModelFromRepo = _repository.GetVisitorById(id);
+            var visitorModelFromRepo = await _repository.GetByIdAsync(id);
             if (visitorModelFromRepo == null)
             {
                 return NotFound();
             }
 
-            _repository.DeleteVisitor(visitorModelFromRepo);
-            _repository.SaveChanges();
+            await _repository.DeleteAsync(visitorModelFromRepo);
 
             return NoContent();
         }

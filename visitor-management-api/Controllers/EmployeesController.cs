@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using visitor_management_api.Data;
 using visitor_management_api.Dtos;
 using visitor_management_api.Models;
@@ -12,19 +13,19 @@ namespace visitor_management_api.Controllers
     [ApiController]
     public class EmployeesController : ControllerBase
     {
-        private readonly IEmployeeRepo _repository;
+        private readonly IEmployeeRepositoryAsync _repository;
         private readonly IMapper _mapper;
 
-        public EmployeesController(IEmployeeRepo repository, IMapper mapper)
+        public EmployeesController(IEmployeeRepositoryAsync repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<EmployeeReadDto>> GetAllEmployees()
+        public async Task<ActionResult<IEnumerable<EmployeeReadDto>>> GetAllEmployees()
         {
-            var employeeItems = _repository.GetAllEmployees();
+            var employeeItems = await _repository.GetAllAsync();
 
             if (employeeItems != null)
             {
@@ -37,9 +38,9 @@ namespace visitor_management_api.Controllers
         }
 
         [HttpGet("{id}", Name = "GetEmployeeById")]
-        public ActionResult<EmployeeReadDto> GetEmployeeById(int id)
+        public async Task<ActionResult<EmployeeReadDto>> GetEmployeeById(int id)
         {
-            var employeeItem = _repository.GetEmployeeById(id);
+            var employeeItem = await _repository.GetByIdAsync(id);
 
             if (employeeItem != null)
             {
@@ -52,11 +53,10 @@ namespace visitor_management_api.Controllers
         }
 
         [HttpPost]
-        public ActionResult<EmployeeReadDto> CreateEmployee(EmployeeCreateDto employeeCreateDto)
+        public async Task<ActionResult<EmployeeReadDto>> CreateEmployee(EmployeeCreateDto employeeCreateDto)
         {
             var employeeModel = _mapper.Map<Employee>(employeeCreateDto);
-            _repository.CreateEmployee(employeeModel);
-            _repository.SaveChanges();
+            await _repository.CreateAsync(employeeModel);
 
             var employeeReadDto = _mapper.Map<EmployeeReadDto>(employeeModel);
 
@@ -64,9 +64,9 @@ namespace visitor_management_api.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateEmployee(int id, EmployeeUpdateDto employeeUpdateDto)
+        public async Task<ActionResult> UpdateEmployee(int id, EmployeeUpdateDto employeeUpdateDto)
         {
-            var employeeModelFromRepo = _repository.GetEmployeeById(id);
+            var employeeModelFromRepo = await _repository.GetByIdAsync(id);
             if (employeeModelFromRepo == null)
             {
                 return NotFound();
@@ -74,17 +74,15 @@ namespace visitor_management_api.Controllers
 
             _mapper.Map(employeeUpdateDto, employeeModelFromRepo);
 
-            _repository.UpdateEmployee(employeeModelFromRepo);
-
-            _repository.SaveChanges();
+            await _repository.UpdateAsync(employeeModelFromRepo);
 
             return NoContent();
         }
 
         [HttpPatch("{id}")]
-        public ActionResult PartialEmployeeUpdate(int id, JsonPatchDocument<EmployeeUpdateDto> patchDocument)
+        public async Task<ActionResult> PartialEmployeeUpdate(int id, JsonPatchDocument<EmployeeUpdateDto> patchDocument)
         {
-            var employeeModelFromRepo = _repository.GetEmployeeById(id);
+            var employeeModelFromRepo = await _repository.GetByIdAsync(id);
             if (employeeModelFromRepo == null)
             {
                 return NotFound();
@@ -101,24 +99,21 @@ namespace visitor_management_api.Controllers
 
             _mapper.Map(employeeToPatch, employeeModelFromRepo);
 
-            _repository.UpdateEmployee(employeeModelFromRepo);
-
-            _repository.SaveChanges();
+            await _repository.UpdateAsync(employeeModelFromRepo);
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public ActionResult DeleteEmployee(int id)
+        public async Task<ActionResult> DeleteEmployee(int id)
         {
-            var employeeModelFromRepo = _repository.GetEmployeeById(id);
+            var employeeModelFromRepo = await _repository.GetByIdAsync(id);
             if (employeeModelFromRepo == null)
             {
                 return NotFound();
             }
 
-            _repository.DeleteEmployee(employeeModelFromRepo);
-            _repository.SaveChanges();
+            await _repository.DeleteAsync(employeeModelFromRepo);
 
             return NoContent();
         }
